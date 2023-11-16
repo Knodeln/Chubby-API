@@ -1,13 +1,13 @@
-package dev.knodeln.chubby;
+package dev.knodeln.chuddy;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ChubbyApplication {
+public class ChuddyApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ChubbyApplication.class, args);
+		SpringApplication.run(ChuddyApplication.class, args);
 	}
 
 }
