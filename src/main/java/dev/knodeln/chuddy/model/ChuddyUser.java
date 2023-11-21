@@ -1,19 +1,25 @@
-package dev.knodeln.chuddy;
+package dev.knodeln.chuddy.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-@Document(collection = "ChuddyUsers")
+@Document(collection = "chuddyUsers")
+@Data   
+@AllArgsConstructor
+@NoArgsConstructor
 public class ChuddyUser {
 
+    @Id
     private ObjectId id;
 
     private String name;
 
-    private Integer age;
+    private String age;
 
     private String userDescription;
 
@@ -25,6 +31,7 @@ public class ChuddyUser {
 
     private String profilePicture;
 
-    private List<String> userPictures;
+    private List<String> interests;
+
 
 }
