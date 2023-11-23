@@ -33,5 +33,7 @@ public class ChuddyUser {
 
     private List<String> interests;
 
-
+    public String getName() {
+        return name;
+    }
 }
