@@ -33,5 +33,16 @@ public class ChuddyUser {
 
     private List<String> interests;
 
-
+    public ChuddyUser(String name, String age, String userDescription, String edProgramme,
+                        String year, String gender, String profilePicture) {
+        this.name = name;
+        this.age = age;
+        this.userDescription = userDescription;
+        this.edProgramme = edProgramme;
+        this.year = year;
+        this.gender = gender;
+        this.profilePicture = profilePicture;
+        this.interests = null;
+    }
 }
+
