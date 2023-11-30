@@ -5,7 +5,7 @@ public class Event {
     private String name;
     private Date date;
 
-    public Event(String Name, Date date) {
+    public Event(String name, Date date) {
         this.name = name;
         this.date = date;
     }
