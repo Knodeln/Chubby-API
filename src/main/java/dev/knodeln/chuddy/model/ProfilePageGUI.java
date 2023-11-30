@@ -85,7 +85,7 @@ public class ProfilePageGUI extends JFrame {
     }
 
     public static void main(String[] args) {
-        ChuddyUser user = new ChuddyUser(null, "Lukas", "age", "userDescription", "edProgramme", "year", "gender", "profilePicture", Arrays.asList("Interest1", "Interest2"));
+        ChuddyUser user = new ChuddyUser(null, "Lukas", "23", "Jag gillar att paddla och räkna kvitton.", "Informationsteknik", "2022", "Unidentified", "profilePicture", Arrays.asList("Programmera", "Plugga"));
 
         SwingUtilities.invokeLater(() -> new ProfilePageGUI(user));
     }
