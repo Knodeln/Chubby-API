@@ -6,9 +6,15 @@ import java.util.*;
     // Method to calculate similarity percentage between two profiles
 public static double calculateSimilarityInterests(UserProfile profile1, UserProfile profile2) {
     int commonAttributes = 0;
-    int totalAttributes = 1; // Assuming 8 common attributes
+    int totalAttributes = 3; // Assuming 8 common attributes
 
     if (profile1.getInterests() != null && profile1.getInterests().equals(profile2.getInterests()))
+            commonAttributes++;
+
+    if (profile1.getEdProgramme() != null && profile1.getEdProgramme().equals(profile2.getEdProgramme()))
+            commonAttributes++;
+
+    if (profile1.getYear() != null && profile1.getYear().equals(profile2.getYear()))
             commonAttributes++;
 
         // Repeat this process for other attributes...
