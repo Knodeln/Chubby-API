@@ -4,7 +4,7 @@ import java.util.*;
 
 
     // Method to calculate similarity percentage between two profiles
-public static double calculateSimilarityInterests(UserProfile profile1, UserProfile profile2) {
+public static double calculateSimilarity(UserProfile profile1, UserProfile profile2) {
     int commonAttributes = 0;
     int totalAttributes = 3; // Assuming 8 common attributes
 
@@ -59,7 +59,7 @@ public static void main(String[] args) {
 
         // Display sorted profiles
     for (Map.Entry<UserProfile, Double> entry : sortedList) {
-        System.out.println("Similarity: " + entry.getValue() + "% - " + entry.getKey().getInterests());
+        System.out.println("Similarity: " + entry.getValue() + "% - " + entry.getKey().getName());
         }
     }   
 }

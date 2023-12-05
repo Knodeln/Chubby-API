@@ -20,7 +20,7 @@ public class displayUsers extends JFrame {
         setLocationRelativeTo(null);
 
         // Sort the profiles by similarity
-        Map<UserProfile, Double> similarityMap = calculateSimilarityInterests();
+        Map<UserProfile, Double> similarityMap = calculateSimilarity();
         List<Map.Entry<UserProfile, Double>> sortedList = sortProfilesBySimilarity(similarityMap);
 
         // Create a JPanel to display the sorted profiles
@@ -38,7 +38,7 @@ public class displayUsers extends JFrame {
     }
 
     // Calculate similarities between specific profile and other profiles
-    private Map<UserProfile, Double> calculateSimilarityInterests() {
+    private Map<UserProfile, Double> calculateSimilarity() {
         Map<UserProfile, Double> similarityMap = new HashMap<>();
 
         for (UserProfile profile : userProfileList) {
