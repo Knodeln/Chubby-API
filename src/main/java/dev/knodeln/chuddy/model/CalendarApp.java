@@ -1,6 +1,5 @@
 package dev.knodeln.chuddy.model;
 import javax.swing.*;
-
 import java.awt.BorderLayout;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -8,6 +7,7 @@ import java.util.*;
 
 public class CalendarApp extends JFrame {
     private JTextArea eventArea;
+    //private Map<Date, ArrayList<Event>> eventsByDate = new HashMap<>();
 
     public CalendarApp() {
         super("Event");
