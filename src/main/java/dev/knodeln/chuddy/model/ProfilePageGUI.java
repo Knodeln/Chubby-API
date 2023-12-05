@@ -35,7 +35,7 @@ public class ProfilePageGUI extends JFrame {
         mainPanel.add(descriptionScrollPane);
 
         mainPanel.add(new JLabel("Education Programme:"));
-        edProgrammeField = new JTextField(user.getEdProgramme());
+        edProgrammeField = new JTextField(user.getProgramme().toString());
         mainPanel.add(edProgrammeField);
 
         mainPanel.add(new JLabel("Year:"));
@@ -43,11 +43,11 @@ public class ProfilePageGUI extends JFrame {
         mainPanel.add(yearField);
 
         mainPanel.add(new JLabel("Gender:"));
-        genderField = new JTextField(user.getGender());
+        genderField = new JTextField(user.getGender().toString());
         mainPanel.add(genderField);
 
         mainPanel.add(new JLabel("Profile Picture URL:"));
-        profilePicField = new JTextField(user.getProfilePicture());
+        profilePicField = new JTextField(user.getProfilePicture().getPath());
         mainPanel.add(profilePicField);
 
         mainPanel.add(new JLabel("Interests:"));
@@ -85,7 +85,8 @@ public class ProfilePageGUI extends JFrame {
     }
 
     public static void main(String[] args) {
-        ChuddyUser user = new ChuddyUser(null, "Lukas", "23", "Jag gillar att paddla och räkna kvitton.", "Informationsteknik", "2022", "Unidentified", "profilePicture", Arrays.asList("Programmera", "Plugga"));
+        ChuddyUser user = new ChuddyUser(null, "Lukas", "23", "Jag gillar att paddla och räkna kvitton.",
+                "Informationsteknik", "2022", "Unidentified", "profilePicture", Arrays.asList("Programmera", "Plugga"));
 
         SwingUtilities.invokeLater(() -> new ProfilePageGUI(user));
     }
