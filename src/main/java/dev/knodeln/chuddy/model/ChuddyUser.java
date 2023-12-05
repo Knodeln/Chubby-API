@@ -42,7 +42,7 @@ public class ChuddyUser {
 
     private List<ChuddyUser> friends;
 
-    public ChuddyUser(String name, String age/*, String email, String password, String edProgramme, String year, String gender*/) {
+    public ChuddyUser(String name, String age, String email, String password, String edProgramme, String year, String gender) {
         this.name = name;
         this.age = age;
         this.email = email;
@@ -98,8 +98,8 @@ public class ChuddyUser {
         return interests;
     }
 
-    public List<Conversation> getConversations() {
-        return conversations;
+    public void addConversation(Conversation conversation) {
+        conversations.add(conversation);
     }
     public List<ChuddyUser> getFriends() {
         return friends;

@@ -9,18 +9,6 @@ import java.util.List;
 
 public class CurrentUserController {
 
-    public ChuddyUser currentUser;
-
-    @Autowired
-    private UserService userService;
-
-
-    public void setCurrentUser(String email, String password) {
-
-    }
-
-    public void setCurrentUser(ChuddyUser currentUser) {
-        this.currentUser = currentUser;
-    }
+    public static ChuddyUser currentUser;
 
 }

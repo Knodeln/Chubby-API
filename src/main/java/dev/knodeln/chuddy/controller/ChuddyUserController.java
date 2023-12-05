@@ -15,25 +15,26 @@ import java.util.Map;
 @Controller
 public class ChuddyUserController {
 
+    public static List<ChuddyUser> allUsers;
 
-    public static List<ChuddyUser> getAllUsers() {
-        return UserService.deserializeUserListFromJson("chuddyUsers.json");
-    }
     public static void addUser(ChuddyUser newUser){
         boolean userExists = false;
-        for (ChuddyUser user : getAllUsers()) {
+        for (ChuddyUser user : allUsers) {
             if (user.getEmail().equals(newUser.getEmail())) {
                 userExists = true;
                 break;
             }
         }
         if (!userExists) {
-            UserService.serializeNewUserToJson(newUser, "chuddyUsers.json");
+            allUsers.add(newUser);
         }
+
+
     }
 
     public static void deleteUser(ChuddyUser userToBeDeleted) {
-        getAllUsers().removeIf(user -> user.getEmail().equals(userToBeDeleted.getEmail()));
+        allUsers.removeIf(user -> user.getEmail().equals(userToBeDeleted.getEmail()));
+
     }
     public static void addFriend(ChuddyUser user1, ChuddyUser user2) {
         List<ChuddyUser> friendsForUser1 = user1.getFriends();
@@ -43,5 +44,9 @@ public class ChuddyUserController {
         List<ChuddyUser> friendForUser2 = user2.getFriends();
         friendForUser2.add(user1);
         user1.setFriends(friendForUser2);
+        //Should add a conversation between users when adding friends
+
+
     }
+
 }

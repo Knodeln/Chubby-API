@@ -17,32 +17,10 @@ import java.util.List;
 public class UserService {
 
 
-    public static void serializeNewUserToJson(ChuddyUser newUser, String filePath) {
+
+    public static void serializeUsersToJson(List<ChuddyUser> existingUsers, String filePath) {
         try {
-            // Read existing users from the file, if any
-            List<ChuddyUser> existingUsers = deserializeUserListFromJson(filePath);
 
-            // Add the new user to the list
-            existingUsers.add(newUser);
-
-            // Write the updated list back to the file
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.writeValue(new File(filePath), existingUsers);
-
-            System.out.println("Serialization successful. File updated at: " + filePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("Error during serialization: " + e.getMessage());
-        }
-    }
-
-    public static void serializeUsersToJson(ChuddyUser newUser, String filePath) {
-        try {
-            // Read existing users from the file, if any
-            List<ChuddyUser> existingUsers = deserializeUserListFromJson(filePath);
-
-            // Add the new user to the list
-            existingUsers.add(newUser);
 
             // Write the updated list back to the file
             ObjectMapper objectMapper = new ObjectMapper();
