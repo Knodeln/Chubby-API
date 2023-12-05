@@ -9,6 +9,7 @@ public class LoginGUI implements ActionListener{
 	JFrame frame = new JFrame();
 	JButton loginButton = new JButton("Login");
 	JButton resetButton = new JButton("Reset");
+    JButton signupButton = new JButton("Sign Up");
 	JTextField userIDField = new JTextField();
 	JPasswordField userPasswordField = new JPasswordField();
 	JLabel userIDLabel = new JLabel("userID:");
@@ -32,6 +33,10 @@ public class LoginGUI implements ActionListener{
 		loginButton.setBounds(125,200,100,25);
 		loginButton.setFocusable(false);
 		loginButton.addActionListener(this);
+
+        signupButton.setBounds(25,200,100,25);
+		signupButton.setFocusable(false);
+		signupButton.addActionListener(this);
 		
 		resetButton.setBounds(225,200,100,25);
 		resetButton.setFocusable(false);
@@ -44,6 +49,7 @@ public class LoginGUI implements ActionListener{
 		frame.add(userPasswordField);
 		frame.add(loginButton);
 		frame.add(resetButton);
+        frame.add(signupButton);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(420,420);
 		frame.setLayout(null);
@@ -58,6 +64,12 @@ public class LoginGUI implements ActionListener{
 			userIDField.setText("");
 			userPasswordField.setText("");
 		}
+
+        if(e.getSource() == signupButton) {
+            SignUp signUpPage = new SignUp(); 
+            signUpPage.displaySignUpGUI();
+            frame.dispose(); 
+        }
 		
 		if(e.getSource()==loginButton) {
 			
@@ -69,7 +81,7 @@ public class LoginGUI implements ActionListener{
 					messageLabel.setForeground(Color.green);
 					messageLabel.setText("Login successful");
 					frame.dispose();
-					WelcomePage welcomePage = new WelcomePage(userID);
+					WelcomePage welcomePage = new WelcomePage(userID); // sätt in första sidan här
 				}
 				else {
 					messageLabel.setForeground(Color.red);
