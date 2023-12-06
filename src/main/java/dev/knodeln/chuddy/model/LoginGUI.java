@@ -10,10 +10,10 @@ public class LoginGUI implements ActionListener{
 	JButton loginButton = new JButton("Login");
 	JButton resetButton = new JButton("Reset");
     JButton signupButton = new JButton("Sign Up");
-	JTextField userIDField = new JTextField();
+	JTextField userMailField = new JTextField();
 	JPasswordField userPasswordField = new JPasswordField();
-	JLabel userIDLabel = new JLabel("userID:");
-	JLabel userPasswordLabel = new JLabel("password:");
+	JLabel userMailLabel = new JLabel("E-mail:");
+	JLabel userPasswordLabel = new JLabel("Password:");
 	JLabel messageLabel = new JLabel();
 	HashMap<String,String> logininfo = new HashMap<String,String>();
 	
@@ -21,13 +21,13 @@ public class LoginGUI implements ActionListener{
 		
 		logininfo = loginInfoOriginal;
 		
-		userIDLabel.setBounds(50,100,75,25);
+		userMailLabel.setBounds(50,100,75,25);
 		userPasswordLabel.setBounds(50,150,75,25);
 		
 		messageLabel.setBounds(125,250,250,35);
 		messageLabel.setFont(new Font(null,Font.ITALIC,25));
 		
-		userIDField.setBounds(125,100,200,25);
+		userMailField.setBounds(125,100,200,25);
 		userPasswordField.setBounds(125,150,200,25);
 		
 		loginButton.setBounds(125,200,100,25);
@@ -42,10 +42,10 @@ public class LoginGUI implements ActionListener{
 		resetButton.setFocusable(false);
 		resetButton.addActionListener(this);
 		
-		frame.add(userIDLabel);
+		frame.add(userMailLabel);
 		frame.add(userPasswordLabel);
 		frame.add(messageLabel);
-		frame.add(userIDField);
+		frame.add(userMailField);
 		frame.add(userPasswordField);
 		frame.add(loginButton);
 		frame.add(resetButton);
@@ -61,7 +61,7 @@ public class LoginGUI implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource()==resetButton) {
-			userIDField.setText("");
+			userMailField.setText("");
 			userPasswordField.setText("");
 		}
 
@@ -73,7 +73,7 @@ public class LoginGUI implements ActionListener{
 		
 		if(e.getSource()==loginButton) {
 			
-			String userID = userIDField.getText();
+			String userID = userMailField.getText();
 			String password = String.valueOf(userPasswordField.getPassword());
 			
 			if(logininfo.containsKey(userID)) {
@@ -94,5 +94,8 @@ public class LoginGUI implements ActionListener{
 				messageLabel.setText("username not found");
 			}
 		}
-	}	
+	}
+
+    public void displayLoginGUI() {
+    }	
 }

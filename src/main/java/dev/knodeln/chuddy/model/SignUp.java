@@ -11,6 +11,7 @@ public class SignUp {
     private JButton signUpButton;
 
     public SignUp() {
+
         signUpFrame = new JFrame("Sign Up");
         signUpFrame.setSize(300, 200);
         signUpFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -33,7 +34,11 @@ public class SignUp {
                 // For example: signup(username, password);
                 // Remember to implement your signup logic here
                 // After signup, you might want to dispose of the signup window
-                signUpFrame.dispose();
+                if(e.getSource() == signUpButton) {
+                    LoginGUI loginPage = new LoginGUI(null); 
+                    loginPage.displayLoginGUI();
+                    signUpFrame.dispose(); 
+                }
             }
         });
 
@@ -62,7 +67,7 @@ public class SignUp {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new SignUp(); // Create an instance of SignUp for testing
+               
             }
         });
     }
