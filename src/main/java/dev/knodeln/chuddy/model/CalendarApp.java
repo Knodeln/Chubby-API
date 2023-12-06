@@ -3,11 +3,14 @@ import javax.swing.*;
 import java.awt.BorderLayout;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
-public class CalendarApp extends JFrame {
+public class CalendarApp extends JFrame implements DatePicker.DateSelectedListener {
     private JTextArea eventArea;
-    //private Map<Date, ArrayList<Event>> eventsByDate = new HashMap<>();
+    private Map<Date, ArrayList<Event>> eventsByDate = new HashMap<>();
+    private DatePicker datePicker;
 
     public CalendarApp() {
         super("Event");
@@ -21,6 +24,13 @@ public class CalendarApp extends JFrame {
         JScrollPane scrollPane = new JScrollPane(eventArea);
         getContentPane().add(scrollPane);
 
+        datePicker = new DatePicker();
+        datePicker.addDateSelectedListener(this);
+
+        JButton createEventButton = new JButton("Skapa event");
+        createEventButton.addActionListener(this::createEventButtonActionPerformed);
+        getContentPane().add(createEventButton, BorderLayout.SOUTH);
+
         displayEvents();
     }
 
@@ -33,31 +43,9 @@ public class CalendarApp extends JFrame {
 
         StringBuilder eventText = new StringBuilder("Events: \n");
 
-        JButton createEventButton = new JButton("Skapa Event");
-        createEventButton.addActionListener(e -> createCustomEvent());
-        getContentPane().add(createEventButton, BorderLayout.SOUTH);
-
-        // boolean nextWeekHeaderPrinted = false;
-        // eventText.append("- Denna veckan -\n");
-        
-        // for (int i = 0; i < 14; i++) {
-        //     if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY && !nextWeekHeaderPrinted) {
-        //         eventText.append("- Nästa vecka -\n");
-        //         nextWeekHeaderPrinted = true;
-        //     } else if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
-        //         eventText.append("- Om 2 veckor -\n");
-        //     }
-
-        //     eventText.append(dateFormat.format(calendar.getTime())).append("\n");   
-            
-        //     ArrayList<Event> events = generateRandomEvents();
-        //     for (Event event : events) {
-        //             eventText.append("- ").append(event.getName()).append("\n");
-        //     }
-            
-        //     calendar.add(Calendar.DATE, 1);
-
-        // }
+        // JButton createEventButton = new JButton("Skapa Event");
+        // createEventButton.addActionListener(e -> createCustomEvent());
+        // getContentPane().add(createEventButton, BorderLayout.SOUTH);
         
         while (calendar.get(Calendar.WEEK_OF_YEAR) <= currentWeek + 1) {
             if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
@@ -82,7 +70,39 @@ public class CalendarApp extends JFrame {
 
     }
 
-    private void createCustomEvent() {
+    @Override
+    public void onDateSelected(String selectedDate) {
+        JOptionPane.showMessageDialog(null, "Valt datum: " + selectedDate);
+    }
+
+    private void createEventButtonActionPerformed(ActionEvent evt) {
+        datePicker.setVisible(true);
+
+        datePicker.addDateSelectedListener(selectedDate -> {
+            JOptionPane.showMessageDialog(null, "Valt datum: " + selectedDate);
+
+            createCustomEvent(selectedDate);
+        });
+
+    }
+
+
+    private ArrayList<Event> generateRandomEvents() {
+        ArrayList<Event> events = new ArrayList<>();
+        Random random = new Random();
+        int numEvents = random.nextInt(5);
+
+        for (int i = 0; i < numEvents; i++) {
+            Calendar randomCalendar = Calendar.getInstance();
+            randomCalendar.add(Calendar.DATE, random.nextInt(30));
+
+            Event event = new Event("Random Event " + (i + 1), randomCalendar.getTime());
+            events.add(event);
+        }
+        return events;
+    }
+
+    private void createCustomEvent(String selectedDate) {
         String eventName = JOptionPane.showInputDialog("Ange namnet på ditt event:");
         if (eventName != null && !eventName.isEmpty()) {
             Date currentDate = new Date();
@@ -106,25 +126,17 @@ public class CalendarApp extends JFrame {
         eventArea.setText(eventText.toString());
     }
 
-    private ArrayList<Event> generateRandomEvents() {
-        ArrayList<Event> events = new ArrayList<>();
-        Random random = new Random();
-
-        int numEvents = random.nextInt(5);
-
-        for (int i = 0; i < numEvents; i++) {
-            Calendar randomCalendar = Calendar.getInstance();
-            randomCalendar.add(Calendar.DATE, random.nextInt(30));
-
-            Event event = new Event("Random Event " + (i + 1), randomCalendar.getTime());
-            events.add(event);
-        }
-        return events;
-    }
+    // private void setupDatePicker() {
+    //     DatePicker datePicker = new DatePicker();
+    //     datePicker.addDateSelectedListener(selectedDate -> {
+    //         JOptionPane.showMessageDialog(null, "Valt datum: " + selectedDate);
+    //     });
+    // }
 
     public static void main(String[] args) {
         SwingUtilities. invokeLater(() -> {
             CalendarApp calendarApp = new CalendarApp();
+            //calendarApp.setupDatePicker();
             calendarApp.setVisible(true);
         }); 
     }

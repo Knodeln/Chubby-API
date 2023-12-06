@@ -1,10 +1,24 @@
 package dev.knodeln.chuddy.model;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Calendar;
 import javax.swing.*;
 
-public class DatePicker extends JFrame{
+public class DatePicker extends JFrame {
+    public interface DateSelectedListener {
+        void onDateSelected(String selectedDate);
+    }
+
+    private DateSelectedListener listener;
+
+    public void addDateSelectedListener(DateSelectedListener listener) {
+        this.listener = listener;
+    }
+
+    private void notifyDateSelected(String selectedDate) {
+        if (listener != null) {
+            listener.onDateSelected(selectedDate);
+        }
+    }
+
     private JComboBox<Integer> dayCbx;
     private JComboBox<String> monthCbx;
     private JComboBox<Integer> yearCbx;
@@ -28,7 +42,7 @@ public class DatePicker extends JFrame{
                 "Augusti", "September", "Oktober", "Nomvember", "December"};
         monthCbx = new JComboBox<>(months);
 
-        // Kunna välja år
+        // Kunna välja år, från och med detta och 5 år fram
         yearCbx = new JComboBox<>();
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
         for (int i = currentYear; i <= currentYear + 5; i++) {
@@ -40,17 +54,15 @@ public class DatePicker extends JFrame{
         panel.add(yearCbx);
 
         JButton selectDateButton = new JButton("Välj datum");
-        selectDateButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int day = (int) dayCbx.getSelectedItem();
-                String month = (String) monthCbx.getSelectedItem();
-                int year = (int) yearCbx.getSelectedItem();
+        selectDateButton.addActionListener(e -> {
+            int day = (int) dayCbx.getSelectedItem();
+            String month = (String) monthCbx.getSelectedItem();
+            int year = (int) yearCbx.getSelectedItem();
 
-                // Do something with the selected date
-                String selectedDate = day + " " + month + " " + year;
-                JOptionPane.showMessageDialog(null, "Valt datum: " + selectedDate);
-            }
+            // Do something with the selected date
+            String selectedDate = day + " " + month + " " + year;
+            notifyDateSelected(selectedDate);
+
         });
         panel.add(selectDateButton);
 
@@ -63,5 +75,4 @@ public class DatePicker extends JFrame{
             datePicker.setVisible(true);
         });
     }
-    
 }
