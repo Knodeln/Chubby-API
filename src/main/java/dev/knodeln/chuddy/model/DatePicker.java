@@ -69,10 +69,10 @@ public class DatePicker extends JFrame {
         add(panel);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            DatePicker datePicker = new DatePicker();
-            datePicker.setVisible(true);
-        });
-    }
+    // public static void main(String[] args) {
+    //     SwingUtilities.invokeLater(() -> {
+    //         DatePicker datePicker = new DatePicker();
+    //         datePicker.setVisible(true);
+    //     });
+    // }
 }

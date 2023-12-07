@@ -1,6 +1,7 @@
 package dev.knodeln.chuddy.model;
 import javax.swing.*;
 import java.awt.BorderLayout;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.awt.event.ActionEvent;
@@ -26,6 +27,7 @@ public class CalendarApp extends JFrame implements DatePicker.DateSelectedListen
 
         datePicker = new DatePicker();
         datePicker.addDateSelectedListener(this);
+        datePicker.setVisible(false);
 
         JButton createEventButton = new JButton("Skapa event");
         createEventButton.addActionListener(this::createEventButtonActionPerformed);
@@ -72,7 +74,8 @@ public class CalendarApp extends JFrame implements DatePicker.DateSelectedListen
 
     @Override
     public void onDateSelected(String selectedDate) {
-        JOptionPane.showMessageDialog(null, "Valt datum: " + selectedDate);
+        System.out.println("Selected Date: " + selectedDate);
+        createCustomEvent(selectedDate);
     }
 
     private void createEventButtonActionPerformed(ActionEvent evt) {
@@ -85,7 +88,6 @@ public class CalendarApp extends JFrame implements DatePicker.DateSelectedListen
         });
 
     }
-
 
     private ArrayList<Event> generateRandomEvents() {
         ArrayList<Event> events = new ArrayList<>();
@@ -103,28 +105,61 @@ public class CalendarApp extends JFrame implements DatePicker.DateSelectedListen
     }
 
     private void createCustomEvent(String selectedDate) {
+
+        System.out.println("Selected Date (Before Parsing): " + selectedDate);
         String eventName = JOptionPane.showInputDialog("Ange namnet på ditt event:");
         if (eventName != null && !eventName.isEmpty()) {
             Date currentDate = new Date();
-            Event customEvent = new Event(eventName, currentDate);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
+            Date date = null;
+            try{
+                date = dateFormat.parse(selectedDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
-            ArrayList<Event> events = generateRandomEvents();
-            events.add(customEvent);
-            updateEventDisplay(events);
-        } else {
-            JOptionPane.showMessageDialog(null, "Felaktigt namn på event.");
+            if (date != null) {
+                ArrayList<Event> events = eventsByDate.getOrDefault(date, new ArrayList<>());
+
+                events.add(new Event(eventName, currentDate));
+
+                eventsByDate.put(date, events);
+
+                updateEventDisplay();
+                datePicker.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(null, "Invalid format.");
+            }
         }
     }
+    private void updateEventDisplay() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        StringBuilder eventText = new StringBuilder("Events \n");
 
-    private void updateEventDisplay(ArrayList<Event> events) {
-        StringBuilder eventText = new StringBuilder("Events: \n");
+        for(Map.Entry<Date, ArrayList<Event>> entry : eventsByDate.entrySet()) {
+            Date date = entry.getKey();
+            eventText.append("Date: ").append(dateFormat.format(date)).append("\n");
 
-        for (Event event : events) {
-            eventText.append("- ").append(event.getName()).append("\n");
+            ArrayList<Event> events = entry.getValue();
+            for (Event event : events) {
+                eventText.append("- ").append(event.getName()).append("\n");
+            }
+
+            eventText.append("\n");
         }
 
         eventArea.setText(eventText.toString());
     }
+
+    // private void updateEventDisplay(ArrayList<Event> events) {
+    //     StringBuilder eventText = new StringBuilder("Events: \n");
+
+    //     for (Event event : events) {
+    //         eventText.append("- ").append(event.getName()).append("\n");
+    //     }
+
+    //     eventArea.setText(eventText.toString());
+    // }
 
     // private void setupDatePicker() {
     //     DatePicker datePicker = new DatePicker();
