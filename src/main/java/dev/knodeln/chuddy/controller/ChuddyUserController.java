@@ -1,6 +1,7 @@
 package dev.knodeln.chuddy.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.knodeln.chuddy.model.ChuddyDataHandler;
 import dev.knodeln.chuddy.model.ChuddyUser;
 import dev.knodeln.chuddy.model.UserService;
 import org.springframework.stereotype.Controller;
@@ -15,25 +16,22 @@ import java.util.Map;
 @Controller
 public class ChuddyUserController {
 
-    public static List<ChuddyUser> allUsers;
 
     public static void addUser(ChuddyUser newUser){
         boolean userExists = false;
-        for (ChuddyUser user : allUsers) {
+        for (ChuddyUser user : ChuddyDataHandler.getAllUsers()) {
             if (user.getEmail().equals(newUser.getEmail())) {
                 userExists = true;
                 break;
             }
         }
         if (!userExists) {
-            allUsers.add(newUser);
+            ChuddyDataHandler.getAllUsers().add(newUser);
         }
-
-
     }
 
     public static void deleteUser(ChuddyUser userToBeDeleted) {
-        allUsers.removeIf(user -> user.getEmail().equals(userToBeDeleted.getEmail()));
+        ChuddyDataHandler.getAllUsers().removeIf(user -> user.getEmail().equals(userToBeDeleted.getEmail()));
 
     }
     public static void addFriend(ChuddyUser user1, ChuddyUser user2) {
@@ -44,7 +42,7 @@ public class ChuddyUserController {
         List<ChuddyUser> friendForUser2 = user2.getFriends();
         friendForUser2.add(user1);
         user1.setFriends(friendForUser2);
-        //Should add a conversation between users when adding friends
+        //Should add an empty conversation between users when adding friends
 
 
     }
