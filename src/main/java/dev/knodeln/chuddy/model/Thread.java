@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Thread {
-    private String title;
     private List<Message> messages;
 
-    public ChatThread() {
+
+    public void ChatThread() {
         this.messages = new ArrayList<>();
     }
 
-    public void addMessage(Message message) {
+    public void addMessage(ChuddyUser sender, String content) {
+        Message message = new Message(sender, content);
         messages.add(message);
     }
 

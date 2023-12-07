@@ -2,12 +2,13 @@ package dev.knodeln.chuddy.model;
 
 import java.util.Scanner;
 import java.util.Random;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 public class Message {
     private ChuddyUser sender;
     private String content;
 
-    // lägg till timestamp också
     public Message(ChuddyUser sender, String content) {
         this.sender = sender;
         this.content = content;
@@ -21,39 +22,19 @@ public class Message {
         return content;
     }
 
-    // testar först chatta med bot
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("ChatBot: Hello! How can I help you today?");
-
-        while (true) {
-            String userMessage = scanner.nextLine();
-
-            String botResponse = generateRandomResponse();
-            System.out.println("ChatBot: " + botResponse);
-
-            if (userMessage.equalsIgnoreCase("bye")) {
-                System.out.println("ChatBot: Goodbye! Have a great day!");
-                break;
-            }
-        }
-        scanner.close();
+    public static String timeStamp() {
+        Date thisDate = new Date();
+        SimpleDateFormat dateForm = new SimpleDateFormat("dd MMMM hh:mm");
+        return dateForm.format(thisDate);
     }
 
-    private static String generateRandomResponse() {
-        String[] responses = {
-                "I'm not sure how to respond to that.",
-                "Tell me more.",
-                "Interesting!",
-                "What do you think about that?",
-                "I see.",
-                "That's cool!",
-                "I'm a chatbot, so I don't have personal opinions."
-        };
+    public void answerMessage() {
+        Thread thread = new Thread();
+    }
 
-        Random random = new Random();
-        int index = random.nextInt(responses.length);
-        return responses[index];
+    public static void main(String[] args) {
+        ChuddyUser bajskorv = new ChuddyUser("Senja");
+        ChuddyUser fitta = new ChuddyUser("Joel");
+        Message testmessage = new Message(bajskorv, "uiwheiahweuiehiqhweu");
     }
 }
