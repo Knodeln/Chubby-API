@@ -1,19 +1,32 @@
 package dev.knodeln.chuddy;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import dev.knodeln.chuddy.controller.ChuddyUserController;
+import dev.knodeln.chuddy.model.ChuddyDataHandler;
+import dev.knodeln.chuddy.model.UserService;
+import dev.knodeln.chuddy.view.TestFrame;
 
-@SpringBootApplication
-public class ChuddyApplication {
+
+import javax.swing.*;
+
+
+
+public class ChuddyApplication extends JFrame {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ChuddyApplication.class, args);
+		ChuddyDataHandler.startUp();
+
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				new TestFrame().setVisible(true);
+			}
+		});
+
+		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+			@Override
+			public void run() {
+				ChuddyDataHandler.shutDown();
+			}
+		}));
 	}
-
-
-
 }
  
