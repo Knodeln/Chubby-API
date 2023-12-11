@@ -1,6 +1,7 @@
 package dev.knodeln.chuddy.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.knodeln.chuddy.Exceptions.UserAlreadyExistsException;
 import dev.knodeln.chuddy.model.ChuddyDataHandler;
 import dev.knodeln.chuddy.model.ChuddyUser;
 import dev.knodeln.chuddy.model.UserService;
@@ -17,17 +18,17 @@ import java.util.Map;
 public class ChuddyUserController {
 
 
-    public static void addUser(ChuddyUser newUser){
-        boolean userExists = false;
+    public static void addUser(ChuddyUser newUser) throws UserAlreadyExistsException {
+
         for (ChuddyUser user : ChuddyDataHandler.getAllUsers()) {
             if (user.getEmail().equals(newUser.getEmail())) {
-                userExists = true;
-                break;
+
+                throw new UserAlreadyExistsException("A user with that email already exists");
+
             }
         }
-        if (!userExists) {
-            ChuddyDataHandler.getAllUsers().add(newUser);
-        }
+        ChuddyDataHandler.getAllUsers().add(newUser);
+
     }
 
     public static void deleteUser(ChuddyUser userToBeDeleted) {
@@ -43,7 +44,6 @@ public class ChuddyUserController {
         friendForUser2.add(user1);
         user1.setFriends(friendForUser2);
         //Should add an empty conversation between users when adding friends
-
 
     }
 

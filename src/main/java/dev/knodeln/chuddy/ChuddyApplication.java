@@ -9,7 +9,7 @@ import javax.swing.*;
 
 
 
-public class ChuddyApplication extends JFrame {
+public class ChuddyApplication {
 
 	public static void main(String[] args) {
 		ChuddyDataHandler.startUp();

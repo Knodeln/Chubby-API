@@ -28,4 +28,13 @@ public class UserService {
             throw new UserNotFoundException("User could not be found");
         }
     }
+    public static void updateUser(ChuddyUser user, String name, String age, String description, String edProgramme, String year, String gender, String profilePicture) {
+        user.setName(name);
+        user.setAge(age);
+        user.setUserDescription(description);
+        user.setEdProgramme(edProgramme);
+        user.setYear(year);
+        user.setGender(gender);
+        user.setProfilePicture(profilePicture);
+    }
 }

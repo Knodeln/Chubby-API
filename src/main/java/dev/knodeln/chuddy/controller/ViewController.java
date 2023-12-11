@@ -11,13 +11,11 @@ public class ViewController {
 
     public static void setProfilePageView() {
         new ProfilePageGUI().setVisible(true);
+
     }
 
     public static void setSignUpView() {
         new SignUp().setVisible(true);
 
     }
-
-
-
 }

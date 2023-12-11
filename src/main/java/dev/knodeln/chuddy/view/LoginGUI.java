@@ -9,8 +9,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class LoginGUI extends JFrame implements ActionListener{
-	
-	JFrame frame = new JFrame();
+
 	JButton loginButton = new JButton("Login");
 	JButton resetButton = new JButton("Reset");
     JButton signupButton = new JButton("Sign Up");
@@ -22,7 +21,9 @@ public class LoginGUI extends JFrame implements ActionListener{
 
 	
 	public LoginGUI(){
-		
+
+		setLocationRelativeTo(null);
+		setTitle("Login");
 
 		
 		userMailLabel.setBounds(50,100,75,25);
@@ -46,18 +47,18 @@ public class LoginGUI extends JFrame implements ActionListener{
 		resetButton.setFocusable(false);
 		resetButton.addActionListener(this);
 		
-		frame.add(userMailLabel);
-		frame.add(userPasswordLabel);
-		frame.add(messageLabel);
-		frame.add(userMailField);
-		frame.add(userPasswordField);
-		frame.add(loginButton);
-		frame.add(resetButton);
-        frame.add(signupButton);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(420,420);
-		frame.setLayout(null);
-		frame.setVisible(true);
+		this.add(userMailLabel);
+		this.add(userPasswordLabel);
+		this.add(messageLabel);
+		this.add(userMailField);
+		this.add(userPasswordField);
+		this.add(loginButton);
+		this.add(resetButton);
+		this.add(signupButton);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setSize(420,420);
+		this.setLayout(null);
+		this.setVisible(true);
 		
 	}
 
@@ -71,7 +72,7 @@ public class LoginGUI extends JFrame implements ActionListener{
 
         if(e.getSource() == signupButton) {
             ViewController.setSignUpView();
-            frame.dispose(); 
+			this.dispose();
         }
 		
 		if(e.getSource()==loginButton) {
@@ -80,10 +81,12 @@ public class LoginGUI extends JFrame implements ActionListener{
 			String password = String.valueOf(userPasswordField.getPassword());
 			try {
 				CurrentUserController.login(userID, password);
-				frame.dispose();
+
+				this.dispose();
 				ViewController.setProfilePageView();
 			} catch (Exception ex) {
 				System.out.println(ex);
+				JOptionPane.showMessageDialog(null, "User not found");
 			}
 
 
