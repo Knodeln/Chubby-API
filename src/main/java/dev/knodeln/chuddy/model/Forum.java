@@ -25,17 +25,18 @@ public class Forum {
         users.add(user);
     }
 
-    public DiscussionThread createThread(String threadName) {
-        DiscussionThread newThread = new DiscussionThread(null, threadName);
-        threads.add(newThread);
-        selectedThread = newThread; 
-        return newThread;
-    }
+    //public DiscussionThread createThread(String threadName) {
+      //  DiscussionThread newThread = new DiscussionThread(null, threadName);
+      //  threads.add(newThread);
+
+    //    return newThread; // Return the created thread
+  //  }
 
     public void addMessage(ChuddyUser sender, String content) {
         Message message = new Message(sender, content);
-    
+
         if (selectedThread != null) {
+
             selectedThread.addMessage(message);
             System.out.println("Message added to the selected thread: " + selectedThread.getThreadName());
         } else {
@@ -47,11 +48,9 @@ public class Forum {
             }
         }
     }
-    
-    
 
-    void selectOrCreateThread() {
-
+    // dela upp denna metod i 2
+    public void selectOrCreateThread() {
         if (threads.isEmpty()) {
             String threadName = JOptionPane.showInputDialog("Enter the name of the new thread:");
             if (threadName != null && !threadName.isEmpty()) {
@@ -59,17 +58,33 @@ public class Forum {
                 System.out.println("New thread created: " + selectedThread.getThreadName());
             }
         } else {
-
             String threadName = JOptionPane.showInputDialog("Enter the name of the thread:");
             selectedThread = getThreadByName(threadName);
         }
     }
 
-    private DiscussionThread selectThread() {
+    private DiscussionThread createThread() {
+        if (threads.isEmpty()) {
+            String threadName = JOptionPane.showInputDialog("Enter the name of the new thread:");
+            if (threadName != null && !threadName.isEmpty()) {
 
-        String threadName = JOptionPane.showInputDialog("Enter the name of the thread:");
-        return getThreadByName(threadName);
-    }
+                System.out.println("New thread created: " + selectedThread.getThreadName());
+                DiscussionThread newThread = selectedThread;
+                
+        }
+        } else {
+            
+
+
+        }
+
+
+    
+
+    
+
+    
+
 
     public void displayThreads() {
         System.out.println("Threads: ");

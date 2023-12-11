@@ -23,6 +23,8 @@ public class ChatForumGUI extends JFrame {
         messageTextArea = new JTextArea(10, 30);
         messageDisplayArea = new JTextArea(30, 30);
 
+        //ForumInitializer.initializeDefaultThreads(forum);
+
         JButton postButton = new JButton("Post Message");
         postButton.addActionListener(new ActionListener() {
             @Override
@@ -36,6 +38,14 @@ public class ChatForumGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 viewAllThreads();
+            }
+        });
+
+        JButton myThreadsButton = new JButton("My Threads");
+        myThreadsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewMyThreads();
             }
         });
 
@@ -80,8 +90,7 @@ public class ChatForumGUI extends JFrame {
 
         if (forum.getThreads().isEmpty()) {
             forum.addMessage(currentUser, content);
-            String threadname = JOptionPane.showInputDialog(this, "Enter thread name:");
-
+            String threadname = JOptionPane.showInputDialog(this, "bajs");
 
             if (threadname != null && !threadname.isEmpty()) {
                 selectedThread = forum.createThread(threadname);
@@ -101,60 +110,53 @@ public class ChatForumGUI extends JFrame {
     private void viewAllThreads() {
         JDialog viewThreadsDialog = new JDialog(this, "View Threads", true);
         viewThreadsDialog.setLayout(new BorderLayout());
-
+    
         JTextArea threadsTextArea = new JTextArea();
         threadsTextArea.setEditable(false);
-
-        if (forum.getThreads().isEmpty()) {
-            String threadname = JOptionPane.showInputDialog(this, "Enter thread name:");
-
-            if (threadname != null && !threadname.isEmpty()) {
-                forum.createThread(threadname);
-                selectedThread = forum.getThreadByName(threadname);
-                viewSelectedThread();
+    
+        for (DiscussionThread thread : forum.getThreads()) {
+            threadsTextArea.append("Thread: " + thread.getThreadName() + "\n");
+        }
+    
+        JButton newThreadButton = new JButton("New Thread");
+        newThreadButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addNewThread();
                 viewThreadsDialog.dispose();
             }
-        } else {
-            for (DiscussionThread thread : forum.getThreads()) {
-                threadsTextArea.append("Thread: " + thread.getThreadName() + "\n");
+        });
+    
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(newThreadButton);
+        viewThreadsDialog.add(buttonPanel, BorderLayout.SOUTH);
+    
+        threadsTextArea.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Point p = new Point(e.getX(), e.getY());
+                int offset = threadsTextArea.viewToModel2D(p);
+                try {
+                    int line = threadsTextArea.getLineOfOffset(offset);
+                    String threadName = threadsTextArea.getText().split("\n")[line].replace("Thread: ", "").trim();
+                    selectedThread = forum.getThreadByName(threadName);
+                    viewSelectedThread();
+                } catch (BadLocationException ex) {
+                    ex.printStackTrace();
+                }
             }
+        });
+    
+        JScrollPane scrollPane = new JScrollPane(threadsTextArea);
+        viewThreadsDialog.add(scrollPane, BorderLayout.CENTER);
+    
+        viewThreadsDialog.setSize(400, 400);
+        viewThreadsDialog.setLocationRelativeTo(this);
+        viewThreadsDialog.setVisible(true);
+    }
+    
+    private void viewMyThreads() {
 
-            JButton newThreadButton = new JButton("New Thread");
-            newThreadButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    addNewThread();
-                    viewThreadsDialog.dispose();
-                }
-            });
-
-            JPanel buttonPanel = new JPanel();
-            buttonPanel.add(newThreadButton);
-            viewThreadsDialog.add(buttonPanel, BorderLayout.SOUTH);
-
-            threadsTextArea.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    Point p = new Point(e.getX(), e.getY());
-                    int offset = threadsTextArea.viewToModel2D(p);
-                    try {
-                        int line = threadsTextArea.getLineOfOffset(offset);
-                        String threadName = threadsTextArea.getText().split("\n")[line].replace("Thread: ", "").trim();
-                        selectedThread = forum.getThreadByName(threadName);
-                        viewSelectedThread();
-                    } catch (BadLocationException ex) {
-                        ex.printStackTrace();
-                    }
-                }
-            });
-
-            JScrollPane scrollPane = new JScrollPane(threadsTextArea);
-            viewThreadsDialog.add(scrollPane, BorderLayout.CENTER);
-
-            viewThreadsDialog.setSize(400, 400);
-            viewThreadsDialog.setLocationRelativeTo(this);
-            viewThreadsDialog.setVisible(true);
-        }
     }
 
     private void addNewThread() {
@@ -192,6 +194,7 @@ public class ChatForumGUI extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 new ChatForumGUI();
