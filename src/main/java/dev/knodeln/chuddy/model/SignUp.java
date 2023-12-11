@@ -9,6 +9,7 @@ public class SignUp {
     private JTextField usernameField;
     private JPasswordField passwordField;
     private JButton signUpButton;
+    private JButton backButton;
 
     public SignUp() {
 
@@ -23,6 +24,7 @@ public class SignUp {
         JLabel passwordLabel = new JLabel("Password:");
         usernameField = new JTextField(15);
         passwordField = new JPasswordField(15);
+        backButton = new JButton("back");
         signUpButton = new JButton("Sign Up");
 
         signUpButton.addActionListener(new ActionListener() {
@@ -42,12 +44,24 @@ public class SignUp {
             }
         });
 
+        backButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                if (e.getSource() == backButton) {
+                    LoginGUI loginPage = new LoginGUI(null);
+                    loginPage.displayLoginGUI();
+                    signUpFrame.dispose();
+                }
+            }
+        });
+
         panel.add(usernameLabel);
         panel.add(usernameField);
         panel.add(passwordLabel);
         panel.add(passwordField);
         panel.add(new JLabel()); // Placeholder for alignment
         panel.add(signUpButton);
+        panel.add(backButton);
 
         signUpFrame.add(panel);
         signUpFrame.setVisible(true);
