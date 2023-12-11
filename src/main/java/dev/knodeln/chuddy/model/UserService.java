@@ -1,6 +1,7 @@
 package dev.knodeln.chuddy.model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.knodeln.chuddy.Exceptions.UserNotFoundException;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -16,5 +17,15 @@ import java.util.List;
 @Service
 public class UserService {
 
-
+    public static void manageLogin(String email, String password) throws UserNotFoundException {
+        boolean userFound = false;
+        for (ChuddyUser user : ChuddyDataHandler.getAllUsers())
+            if (user.getEmail().equals(email) & user.getPassword().equals(password)) {
+                ChuddyDataHandler.setUserLoggedIn(user);
+                userFound = true;
+            }
+        if (!userFound) {
+            throw new UserNotFoundException("User could not be found");
+        }
+    }
 }

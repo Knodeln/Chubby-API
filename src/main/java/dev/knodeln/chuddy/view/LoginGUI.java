@@ -1,9 +1,11 @@
 package dev.knodeln.chuddy.view;
-import dev.knodeln.chuddy.model.SignUp;
+
+import dev.knodeln.chuddy.controller.CurrentUserController;
+import dev.knodeln.chuddy.controller.ViewController;
+import dev.knodeln.chuddy.model.ChuddyDataHandler;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
 import javax.swing.*;
 
 public class LoginGUI extends JFrame implements ActionListener{
@@ -68,8 +70,7 @@ public class LoginGUI extends JFrame implements ActionListener{
 		}
 
         if(e.getSource() == signupButton) {
-            SignUp signUpPage = new SignUp();
-            signUpPage.displaySignUpGUI();
+            ViewController.setSignUpView();
             frame.dispose(); 
         }
 		
@@ -77,27 +78,15 @@ public class LoginGUI extends JFrame implements ActionListener{
 			
 			String userID = userMailField.getText();
 			String password = String.valueOf(userPasswordField.getPassword());
-			
-			/*if(logininfo.containsKey(userID)) {
-				if(logininfo.get(userID).equals(password)) {
-					messageLabel.setForeground(Color.green);
-					messageLabel.setText("Login successful");
-					frame.dispose();
-					WelcomePage welcomePage = new WelcomePage(userID); // sätt in första sidan här
-				}
-				else {
-					messageLabel.setForeground(Color.red);
-					messageLabel.setText("Wrong password");
-				}
-
+			try {
+				CurrentUserController.login(userID, password);
+				frame.dispose();
+				ViewController.setProfilePageView();
+			} catch (Exception ex) {
+				System.out.println(ex);
 			}
-			else {
-				messageLabel.setForeground(Color.red);
-				messageLabel.setText("username not found");
-			}*/
+
+
 		}
 	}
-
-    public void displayLoginGUI() {
-    }	
 }

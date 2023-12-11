@@ -12,8 +12,17 @@ public class ChuddyDataHandler {
 
     private static List<ChuddyUser> allUsers;
 
+    private static ChuddyUser userLoggedIn;
+
     public static List<ChuddyUser> getAllUsers() {
         return allUsers;
+    }
+    public static ChuddyUser getUserLoggedIn() {
+        return userLoggedIn;
+    }
+
+    public static void setUserLoggedIn(ChuddyUser userLoggedIn) {
+        ChuddyDataHandler.userLoggedIn = userLoggedIn;
     }
 
     public static void startUp() {
@@ -21,6 +30,7 @@ public class ChuddyDataHandler {
     }
     public static void shutDown() {
         serializeUsersToJson(allUsers, "chuddyUsers.json");
+
 
     }
     public static void serializeUsersToJson(List<ChuddyUser> existingUsers, String filePath) {

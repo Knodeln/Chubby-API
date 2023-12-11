@@ -1,5 +1,6 @@
 package dev.knodeln.chuddy;
 
+import dev.knodeln.chuddy.controller.ViewController;
 import dev.knodeln.chuddy.model.*;
 import dev.knodeln.chuddy.view.LoginGUI;
 
@@ -15,7 +16,7 @@ public class ChuddyApplication extends JFrame {
 
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				new LoginGUI().setVisible(true);
+				ViewController.setLoginView();
 			}
 		});
 
