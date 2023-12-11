@@ -21,20 +21,16 @@ public class Message {
     public String getContent() {
         return content;
     }
-
-    public static String timeStamp() {
+// fixa så att timeStamp inte uppdateras när man skickar ett nytt meddelande
+    public String timeStamp() {
         Date thisDate = new Date();
         SimpleDateFormat dateForm = new SimpleDateFormat("dd MMMM hh:mm");
         return dateForm.format(thisDate);
     }
 
-    public void answerMessage() {
-        Thread thread = new Thread();
-    }
-
     public static void main(String[] args) {
-        ChuddyUser bajskorv = new ChuddyUser("Senja");
-        ChuddyUser fitta = new ChuddyUser("Joel");
-        Message testmessage = new Message(bajskorv, "uiwheiahweuiehiqhweu");
+        ChuddyUser test1 = new ChuddyUser("Senja");
+        ChuddyUser test2 = new ChuddyUser("Joel");
+        Message testmessage = new Message(test2, "uiwheiahweuiehiqhweu");
     }
 }
