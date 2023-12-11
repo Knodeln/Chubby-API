@@ -34,11 +34,11 @@ public class SignUp {
                 // For example: signup(username, password);
                 // Remember to implement your signup logic here
                 // After signup, you might want to dispose of the signup window
-                if(e.getSource() == signUpButton) {
+                /*if(e.getSource() == signUpButton) {
                     LoginGUI loginPage = new LoginGUI(null); 
                     loginPage.displayLoginGUI();
                     signUpFrame.dispose(); 
-                }
+                }*/
             }
         });
 

@@ -84,9 +84,4 @@ public class ProfilePageGUI extends JFrame {
         // Print other updated fields in a similar manner
     }
 
-    public static void main(String[] args) {
-        ChuddyUser user = new ChuddyUser(null, "Lukas", "23", "Jag gillar att paddla och räkna kvitton.", "Informationsteknik", "2022", "Unidentified", "profilePicture", Arrays.asList("Programmera", "Plugga"));
-
-        SwingUtilities.invokeLater(() -> new ProfilePageGUI(user));
-    }
 }

@@ -1,10 +1,12 @@
-package dev.knodeln.chuddy.model;
+package dev.knodeln.chuddy.view;
+import dev.knodeln.chuddy.model.SignUp;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
 
-public class LoginGUI implements ActionListener{
+public class LoginGUI extends JFrame implements ActionListener{
 	
 	JFrame frame = new JFrame();
 	JButton loginButton = new JButton("Login");
@@ -15,11 +17,11 @@ public class LoginGUI implements ActionListener{
 	JLabel userMailLabel = new JLabel("E-mail:");
 	JLabel userPasswordLabel = new JLabel("Password:");
 	JLabel messageLabel = new JLabel();
-	HashMap<String,String> logininfo = new HashMap<String,String>();
+
 	
-	LoginGUI(HashMap<String,String> loginInfoOriginal){
+	public LoginGUI(){
 		
-		logininfo = loginInfoOriginal;
+
 		
 		userMailLabel.setBounds(50,100,75,25);
 		userPasswordLabel.setBounds(50,150,75,25);
@@ -66,7 +68,7 @@ public class LoginGUI implements ActionListener{
 		}
 
         if(e.getSource() == signupButton) {
-            SignUp signUpPage = new SignUp(); 
+            SignUp signUpPage = new SignUp();
             signUpPage.displaySignUpGUI();
             frame.dispose(); 
         }
@@ -76,7 +78,7 @@ public class LoginGUI implements ActionListener{
 			String userID = userMailField.getText();
 			String password = String.valueOf(userPasswordField.getPassword());
 			
-			if(logininfo.containsKey(userID)) {
+			/*if(logininfo.containsKey(userID)) {
 				if(logininfo.get(userID).equals(password)) {
 					messageLabel.setForeground(Color.green);
 					messageLabel.setText("Login successful");
@@ -92,7 +94,7 @@ public class LoginGUI implements ActionListener{
 			else {
 				messageLabel.setForeground(Color.red);
 				messageLabel.setText("username not found");
-			}
+			}*/
 		}
 	}
 
