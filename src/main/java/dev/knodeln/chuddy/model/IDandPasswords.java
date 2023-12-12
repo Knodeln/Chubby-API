@@ -7,7 +7,7 @@ public class IDandPasswords {
 	
 	IDandPasswords(){
 		
-		logininfo.put("Hej","pizza");
+		logininfo.put("Hejhå","pizza");
 		logininfo.put("Bye","PASSWORD");
 		logininfo.put("Plzhelp","abc123");
 	}
