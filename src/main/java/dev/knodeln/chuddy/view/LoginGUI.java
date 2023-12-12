@@ -1,5 +1,6 @@
 package dev.knodeln.chuddy.view;
 
+import dev.knodeln.chuddy.Exceptions.UserNotFoundException;
 import dev.knodeln.chuddy.controller.CurrentUserController;
 import dev.knodeln.chuddy.controller.ViewController;
 import dev.knodeln.chuddy.model.ChuddyDataHandler;
@@ -84,7 +85,7 @@ public class LoginGUI extends JFrame implements ActionListener{
 
 				this.dispose();
 				ViewController.setProfilePageView();
-			} catch (Exception ex) {
+			} catch (UserNotFoundException ex) {
 				System.out.println(ex);
 				JOptionPane.showMessageDialog(null, "User not found");
 			}
