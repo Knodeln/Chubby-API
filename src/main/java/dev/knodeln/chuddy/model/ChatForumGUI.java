@@ -15,8 +15,9 @@ public class ChatForumGUI extends JFrame {
     private Forum forum;
     private JTextArea messageTextArea;
     private JTextArea messageDisplayArea;
-
+//ta bort den här skiten, byt ut mot det i forum. forum.getselectedthread
     private DiscussionThread selectedThread;
+   
 
     public ChatForumGUI() {
         forum = new Forum();
@@ -29,7 +30,8 @@ public class ChatForumGUI extends JFrame {
         postButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                postMessage();
+                forum.addMessage(messageTextArea.getText());
+                viewSelectedThread();
             }
         });
 
@@ -84,28 +86,28 @@ public class ChatForumGUI extends JFrame {
         setVisible(true);
     }
 
-    private void postMessage() {
-        String content = messageTextArea.getText();
-        ChuddyUser currentUser = new ChuddyUser("Senja");
+    //private void postMessage() {
+      //  String content = messageTextArea.getText();
+       // ChuddyUser currentUser = new ChuddyUser("Senja");
 
-        if (forum.getThreads().isEmpty()) {
-            forum.addMessage(currentUser, content);
-            String threadname = JOptionPane.showInputDialog(this, "bajs");
+       // if (forum.getThreads().isEmpty()) {
+         //   forum.addMessage(currentUser, content);
+         //   String threadname = JOptionPane.showInputDialog(this, "bajs");
 
-            if (threadname != null && !threadname.isEmpty()) {
-                selectedThread = forum.createThread(threadname);
-                System.out.println("New thread created: " + selectedThread.getThreadName());
+        //    if (threadname != null && !threadname.isEmpty()) {
+         //       selectedThread = forum.createThread(threadname);
+       //         System.out.println("New thread created: " + selectedThread.getThreadName());
 
-            }
-        } else {
+        //    }
+      //  } else {
 
-            forum.addMessage(currentUser, content);
-            System.out.println("Message added to the selected thread: " + selectedThread.getThreadName());
-            messageTextArea.setText("");
+         //   forum.addMessage(currentUser, content);
+         //   System.out.println("Message added to the selected thread: " + selectedThread.getThreadName());
+        //    messageTextArea.setText("");
 
-        }
-        viewSelectedThread();
-    }
+       // }
+       // viewSelectedThread();
+    //}
 
     private void viewAllThreads() {
         JDialog viewThreadsDialog = new JDialog(this, "View Threads", true);
@@ -163,14 +165,15 @@ public class ChatForumGUI extends JFrame {
         String threadname = JOptionPane.showInputDialog(this, "Enter thread name:");
 
         if (threadname != null && !threadname.isEmpty()) {
-            forum.createThread(threadname);
-            selectedThread = forum.getThreadByName(threadname);
+            DiscussionThread newThread = forum.createThread(threadname);
+            selectedThread = newThread;
             viewSelectedThread();
         }
     }
 
     private void viewSelectedThread() {
         System.out.println("viewSelectedThread() called");
+        selectedThread = forum.getSelectedThread();
         if (selectedThread != null) {
             messageDisplayArea.setText("");
 
