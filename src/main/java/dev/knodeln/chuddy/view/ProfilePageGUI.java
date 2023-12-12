@@ -14,18 +14,18 @@ import java.util.Arrays;
 public class ProfilePageGUI extends JFrame implements ActionListener {
     JTextField nameField, ageField, edProgrammeField, yearField, genderField, profilePicField;
     JTextArea descriptionArea, interestsArea;
+    JButton logoutButton, forumButton, saveButton, eventCalenderButton;
 
-    JButton saveButton;
-    JButton logoutButton;
+    JPanel buttonPanel1, buttonPanel2;
 
     public ProfilePageGUI() {
 
         setTitle("User Profile");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 400);
+        setSize(450, 400);
         setLocationRelativeTo(null);
 
-        this.setLayout(new GridLayout(9, 2, 10, 5)); // Adjust layout as needed
+        this.setLayout(new GridLayout(9, 3, 10, 5)); // Adjust layout as needed
 
         this.add(new JLabel("Name:"));
         nameField = new JTextField(ChuddyDataHandler.getUserLoggedIn().getName());
@@ -63,13 +63,27 @@ public class ProfilePageGUI extends JFrame implements ActionListener {
         JScrollPane interestsScrollPane = new JScrollPane(interestsArea);
         this.add(interestsScrollPane);
 
+        buttonPanel1 = new JPanel();
+        buttonPanel2 = new JPanel();
+
         saveButton = new JButton("Save Profile");
-        this.add(saveButton);
+        buttonPanel1.add(saveButton);
         saveButton.addActionListener(this);
 
         logoutButton = new JButton("Logout");
-        this.add(logoutButton);
+        buttonPanel1.add(logoutButton);
         logoutButton.addActionListener(this);
+
+        forumButton = new JButton("Forum");
+        buttonPanel2.add(forumButton);
+        forumButton.addActionListener(this);
+
+        eventCalenderButton = new JButton("Event Calender");
+        buttonPanel2.add(eventCalenderButton);
+        eventCalenderButton.addActionListener(this);
+
+        this.add(buttonPanel1);
+        this.add(buttonPanel2);
     }
 
 
@@ -93,5 +107,6 @@ public class ProfilePageGUI extends JFrame implements ActionListener {
             ViewController.setLoginView();
             this.dispose();
         }
+
     }
 }

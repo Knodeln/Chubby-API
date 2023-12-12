@@ -89,8 +89,6 @@ public class LoginGUI extends JFrame implements ActionListener{
 				System.out.println(ex);
 				JOptionPane.showMessageDialog(null, "User not found");
 			}
-
-
 		}
 	}
 }
