@@ -1,6 +1,7 @@
 package dev.knodeln.chuddy.model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.knodeln.chuddy.Exceptions.UserAlreadyExistsException;
 import dev.knodeln.chuddy.controller.ChuddyUserController;
 
 import java.io.File;
@@ -64,5 +65,16 @@ public class ChuddyDataHandler {
             System.err.println("Error during deserialization: " + e.getMessage());
             return new ArrayList<>();
         }
+    }
+    public static void addUser(ChuddyUser newUser) throws UserAlreadyExistsException{
+        for (ChuddyUser user : getAllUsers()) {
+            if (user.getEmail().equals(newUser.getEmail())) {
+
+                throw new UserAlreadyExistsException("A user with that email already exists");
+
+            }
+        }
+        getAllUsers().add(newUser);
+
     }
 }

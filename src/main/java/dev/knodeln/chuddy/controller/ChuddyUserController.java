@@ -19,15 +19,7 @@ public class ChuddyUserController {
 
 
     public static void addUser(ChuddyUser newUser) throws UserAlreadyExistsException {
-
-        for (ChuddyUser user : ChuddyDataHandler.getAllUsers()) {
-            if (user.getEmail().equals(newUser.getEmail())) {
-
-                throw new UserAlreadyExistsException("A user with that email already exists");
-
-            }
-        }
-        ChuddyDataHandler.getAllUsers().add(newUser);
+        ChuddyDataHandler.addUser(newUser);
 
     }
 
