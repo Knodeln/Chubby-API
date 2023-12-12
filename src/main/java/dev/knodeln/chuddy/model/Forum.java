@@ -21,7 +21,7 @@ public class Forum {
         this.users = new ArrayList<>();
     }
 
-    public DiscussionThread getSelectedThread(){
+    public DiscussionThread getSelectedThread() {
         return selectedThread;
     }
 
@@ -33,6 +33,9 @@ public class Forum {
         DiscussionThread newThread = new DiscussionThread(null, threadName);
         threads.add(newThread);
         selectedThread = newThread;
+        
+        System.out.println("New thread created: " + selectedThread.getThreadName());
+        System.out.println(selectedThread);
 
         return newThread; // Return the created thread
     }
@@ -57,16 +60,20 @@ public class Forum {
 
     // dela upp denna metod i 2
     void selectOrCreateThread() {
+        // first message = create first thread
         if (threads.isEmpty()) {
             String threadName = JOptionPane.showInputDialog("Enter the name of the new thread:");
             if (threadName != null && !threadName.isEmpty()) {
                 selectedThread = createThread(threadName);
-                System.out.println("New thread created: " + selectedThread.getThreadName());
 
             }
+            // add new thread
         } else {
             String threadName = JOptionPane.showInputDialog("Enter the name of the thread:");
-            selectedThread = getThreadByName(threadName);
+            selectedThread = createThread(threadName);
+    
+            // selectedThread = getThreadByName(threadName);
+
         }
     }
 
