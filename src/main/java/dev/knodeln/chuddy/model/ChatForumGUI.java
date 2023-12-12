@@ -141,7 +141,7 @@ public class ChatForumGUI extends JFrame {
                 try {
                     int line = threadsTextArea.getLineOfOffset(offset);
                     String threadName = threadsTextArea.getText().split("\n")[line].replace("Thread: ", "").trim();
-                    selectedThread = forum.getThreadByName(threadName);
+                    forum.selectedThread = forum.getThreadByName(threadName);
                     viewSelectedThread();
                 } catch (BadLocationException ex) {
                     ex.printStackTrace();

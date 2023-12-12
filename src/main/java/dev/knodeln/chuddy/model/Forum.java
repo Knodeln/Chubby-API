@@ -13,7 +13,7 @@ public class Forum {
     private List<DiscussionThread> threads;
     private List<ChuddyUser> users;
     private Scanner scanner = new Scanner(System.in);
-    private DiscussionThread selectedThread;
+    public DiscussionThread selectedThread;
 
     public Forum() {
         this.messages = new ArrayList<>();

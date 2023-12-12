@@ -11,11 +11,11 @@ public class ForumInitializer {
         forum.getThreads().add(thread1);
         forum.getThreads().add(thread2);
         
-        forum.addMessage(user1, "Tja jag hänger gärna med till gasquen!!");
+        /*forum.addMessage(user1, "Tja jag hänger gärna med till gasquen!!");
         forum.addMessage(user2, "Jag med!");
 
         forum.addMessage(user1, "Hej! Jag söker någon att plugga med.");
-        forum.addMessage(user2, "Jag är också intresserad. Vilket ämne?");
+        forum.addMessage(user2, "Jag är också intresserad. Vilket ämne?");*/
 
 
     }
