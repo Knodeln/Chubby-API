@@ -45,7 +45,9 @@ public class Forum {
 
     public void addMessage(String content, ChuddyUser sender) {
         // sender = getCurrentUser()
+
         //ChuddyUser sender = new ChuddyUser("Senja");
+
         Message message = new Message(sender, content);
 
         if (selectedThread != null) {

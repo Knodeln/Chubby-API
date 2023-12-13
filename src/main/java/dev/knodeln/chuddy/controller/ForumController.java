@@ -30,6 +30,8 @@ public class ForumController {
         forum.addMessage(message, sender);
     }
     public static void initDefaultForums() {
-        ForumInitializer.initializeDefaultThreads(forum);
+
+        ForumInitializer.initializeDefaultThreads();
+
     }
 }
