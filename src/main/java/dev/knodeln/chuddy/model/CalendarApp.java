@@ -6,7 +6,7 @@ import java.util.*;
 
 
 public class CalendarApp extends JFrame {
-    private JTextArea eventArea;
+  /*  private JTextArea eventArea;
 
     public CalendarApp() {
         super("Event");
@@ -103,6 +103,7 @@ public class CalendarApp extends JFrame {
             CalendarApp calendarApp = new CalendarApp();
             calendarApp.setVisible(true);
         }); 
-    }
+    */
+    //}
     
 }

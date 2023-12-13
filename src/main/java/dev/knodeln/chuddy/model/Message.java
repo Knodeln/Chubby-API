@@ -28,9 +28,9 @@ public class Message {
         return dateForm.format(thisDate);
     }
 
-    public static void main(String[] args) {
+ /*   public static void main(String[] args) {
         ChuddyUser test1 = new ChuddyUser("Senja");
         ChuddyUser test2 = new ChuddyUser("Joel");
         Message testmessage = new Message(test2, "uiwheiahweuiehiqhweu");
-    }
+    }*/
 }

@@ -1,5 +1,6 @@
 package dev.knodeln.chuddy;
 
+import dev.knodeln.chuddy.controller.ForumController;
 import dev.knodeln.chuddy.controller.ViewController;
 import dev.knodeln.chuddy.model.*;
 import dev.knodeln.chuddy.view.LoginGUI;
@@ -16,6 +17,7 @@ public class ChuddyApplication {
 
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
+				ForumController.initDefaultForums();
 				ViewController.setLoginView();
 			}
 		});

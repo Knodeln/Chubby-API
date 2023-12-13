@@ -107,6 +107,14 @@ public class ProfilePageGUI extends JFrame implements ActionListener {
             ViewController.setLoginView();
             this.dispose();
         }
+        if(e.getSource()==forumButton) {
+            ViewController.setForumView();
+            this.dispose();
+        }
+        if(e.getSource()==eventCalenderButton) {
+            ViewController.setAddFriendsView();
+            this.dispose();
+        }
 
     }
 }

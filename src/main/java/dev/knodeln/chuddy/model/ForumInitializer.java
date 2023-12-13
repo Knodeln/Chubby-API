@@ -9,8 +9,8 @@ public class ForumInitializer {
         ForumController.createThread("Gasquen någon?");
 
 
-        ChuddyUser user1 = new ChuddyUser("Bengt");
-        ChuddyUser user2 = new ChuddyUser("Sven");
+        ChuddyUser user1 = new ChuddyUser("Sven", "test", "test", "test", "IT", "2022", "test");
+        ChuddyUser user2 = new ChuddyUser("Bengt", "test", "test", "test", "Data", "2022", "test");
 
 
 

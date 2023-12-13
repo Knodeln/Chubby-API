@@ -31,9 +31,8 @@ public class ChuddyDataHandler {
     }
     public static void shutDown() {
         serializeUsersToJson(allUsers, "chuddyUsers.json");
-
-
     }
+
     public static void serializeUsersToJson(List<ChuddyUser> existingUsers, String filePath) {
         try {
 
@@ -76,5 +75,19 @@ public class ChuddyDataHandler {
         }
         getAllUsers().add(newUser);
 
+    }
+    public static List<ChuddyUser> allUsersNotFriended() {
+        List<ChuddyUser> allUsersNoFriends = new ArrayList<>(getAllUsers());
+        allUsersNoFriends.remove(getUserLoggedIn());
+        for (ChuddyUser user :getAllUsers()) {
+            if(getUserLoggedIn().getFriends().contains(user)) {
+                allUsersNoFriends.remove(user);
+            }
+        }
+        return allUsersNoFriends;
+    }
+    public static void addFriend(ChuddyUser newFriend) {
+        getUserLoggedIn().addFriend(newFriend);
+        newFriend.addFriend(getUserLoggedIn());
     }
 }

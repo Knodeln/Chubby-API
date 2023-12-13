@@ -19,5 +19,8 @@ public class CurrentUserController {
     public static void updateCurrentUserInformation(String name, String age, String description, String edProgramme, String year, String gender, String profilePicture) {
         UserService.updateUser(ChuddyDataHandler.getUserLoggedIn(), name, age, description, edProgramme, year, gender, profilePicture);
     }
+    public static void addFriend (ChuddyUser newFriend) {
+        ChuddyDataHandler.addFriend(newFriend);
+    }
 
 }

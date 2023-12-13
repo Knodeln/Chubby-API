@@ -54,7 +54,7 @@ public class ChuddyUser {
         this.profilePicture = null;
         this.interests = null;
         this.conversations = null;
-        this.friends = null;
+        this.friends = new ArrayList<ChuddyUser>();
     }
 
 
@@ -103,5 +103,9 @@ public class ChuddyUser {
     }
     public List<ChuddyUser> getFriends() {
         return friends;
+    }
+
+    public void addFriend(ChuddyUser newFriend) {
+        this.friends.add(newFriend);
     }
 }

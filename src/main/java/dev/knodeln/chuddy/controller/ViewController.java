@@ -1,8 +1,6 @@
 package dev.knodeln.chuddy.controller;
 
-import dev.knodeln.chuddy.view.LoginGUI;
-import dev.knodeln.chuddy.view.ProfilePageGUI;
-import dev.knodeln.chuddy.view.SignUp;
+import dev.knodeln.chuddy.view.*;
 
 public class ViewController {
     public static void setLoginView() {
@@ -17,5 +15,11 @@ public class ViewController {
     public static void setSignUpView() {
         new SignUp().setVisible(true);
 
+    }
+    public static void setForumView() {
+        new ChatForumGUI().setVisible(true);
+    }
+    public static void setAddFriendsView(){
+        new AddFriendsGUI().setVisible(true);
     }
 }
