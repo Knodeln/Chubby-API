@@ -1,5 +1,7 @@
 package dev.knodeln.chuddy.model;
 
+import dev.knodeln.chuddy.controller.ForumController;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
@@ -19,6 +21,7 @@ public class Forum {
         this.messages = new ArrayList<>();
         this.threads = new ArrayList<>();
         this.users = new ArrayList<>();
+
     }
 
     public DiscussionThread getSelectedThread() {
@@ -40,9 +43,9 @@ public class Forum {
         return newThread; // Return the created thread
     }
 
-    public void addMessage(String content) {
+    public void addMessage(String content, ChuddyUser sender) {
         // sender = getCurrentUser()
-        ChuddyUser sender = new ChuddyUser("Senja");
+        //ChuddyUser sender = new ChuddyUser("Senja");
         Message message = new Message(sender, content);
 
         if (selectedThread != null) {

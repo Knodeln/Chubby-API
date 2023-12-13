@@ -20,6 +20,8 @@ public class ChatForumGUI extends JFrame {
     // ta bort den här skiten, byt ut mot det i forum. forum.getselectedthread
     private DiscussionThread selectedThread;
 
+    private ChuddyUser currentUser = new ChuddyUser("Senja");
+
     public ChatForumGUI() {
         messageTextArea = new JTextArea(10, 30);
         messageDisplayArea = new JTextArea(30, 30);
@@ -30,7 +32,7 @@ public class ChatForumGUI extends JFrame {
         postButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ForumController.addMessage(messageTextArea.getText());
+                ForumController.addMessage(messageTextArea.getText(), currentUser);
                 viewSelectedThread();
             }
         });
@@ -201,6 +203,7 @@ public class ChatForumGUI extends JFrame {
 
             @Override
             public void run() {
+                ForumController.initDefaultForums();
                 new ChatForumGUI();
             }
         });
