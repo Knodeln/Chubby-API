@@ -1,7 +1,7 @@
 package dev.knodeln.chuddy.model;
 
 public class ForumInitializer {
-    public static void initializeDefaultThreads(Forum forum) {
+/*    public static void initializeDefaultThreads(Forum forum) {
         DiscussionThread thread1 = forum.createThread("Gasquen någon?");
         DiscussionThread thread2 = forum.createThread("söker pluggkompis!!");
 
@@ -18,6 +18,6 @@ public class ForumInitializer {
         forum.addMessage(user2, "Jag är också intresserad. Vilket ämne?");
 
 
-    }
+    }*/
 
 }

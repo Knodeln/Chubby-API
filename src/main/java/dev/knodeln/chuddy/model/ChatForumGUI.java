@@ -1,5 +1,7 @@
 package dev.knodeln.chuddy.model;
 
+import dev.knodeln.chuddy.controller.ForumController;
+
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 
@@ -19,7 +21,6 @@ public class ChatForumGUI extends JFrame {
     private DiscussionThread selectedThread;
 
     public ChatForumGUI() {
-        forum = new Forum();
         messageTextArea = new JTextArea(10, 30);
         messageDisplayArea = new JTextArea(30, 30);
 
@@ -29,7 +30,7 @@ public class ChatForumGUI extends JFrame {
         postButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                forum.addMessage(messageTextArea.getText());
+                ForumController.addMessage(messageTextArea.getText());
                 viewSelectedThread();
             }
         });
@@ -116,7 +117,7 @@ public class ChatForumGUI extends JFrame {
         JTextArea threadsTextArea = new JTextArea();
         threadsTextArea.setEditable(false);
 
-        for (DiscussionThread thread : forum.getThreads()) {
+        for (DiscussionThread thread : ForumController.getDiscussionThreads()) {
             threadsTextArea.append("Thread: " + thread.getThreadName() + "\n");
         }
 
@@ -141,8 +142,8 @@ public class ChatForumGUI extends JFrame {
                 try {
                     int line = threadsTextArea.getLineOfOffset(offset);
                     String threadName = threadsTextArea.getText().split("\n")[line].replace("Thread: ", "").trim();
-
-                    selectedThread = forum.getThreadByName(threadName);
+                    ForumController.selectThread(threadName);
+                    //selectedThread = forum.getThreadByName(threadName);
                     viewSelectedThread();
                 } catch (BadLocationException ex) {
                     ex.printStackTrace();
@@ -166,14 +167,14 @@ public class ChatForumGUI extends JFrame {
         String threadname = JOptionPane.showInputDialog(this, "bajs");
 
         if (threadname != null && !threadname.isEmpty()) {
-            forum.createThread(threadname);
+            ForumController.createThread(threadname);
             viewSelectedThread();
         }
     }
 
     private void viewSelectedThread() {
         System.out.println("viewSelectedThread() called");
-        selectedThread = forum.getSelectedThread();
+        selectedThread = ForumController.getSelectedThread();
         if (selectedThread != null) {
             messageDisplayArea.setText("");
 
