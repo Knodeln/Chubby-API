@@ -67,7 +67,7 @@ public class ChuddyDataHandler {
     }
     public static void addUser(ChuddyUser newUser) throws UserAlreadyExistsException{
         for (ChuddyUser user : getAllUsers()) {
-            if (user.getEmail().equals(newUser.getEmail())) {
+            if (user.getEmail().equals(newUser.getEmail()) || user.getName().equals(newUser.getName())) {
 
                 throw new UserAlreadyExistsException("A user with that email already exists");
 

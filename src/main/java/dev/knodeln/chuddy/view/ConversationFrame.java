@@ -69,13 +69,12 @@ public class ConversationFrame extends JFrame {
     private void updateChatPane() {
         chatPane.setText("");
         for (Message message: ChatController.getMessages()) {
-            appendMessage(message.getSender().getName(), message.getContent());
+            appendMessage(message.getSender().getName(), message.getContent(), message.getTimeStamp());
         }
     }
 
-    private void appendMessage(String user, String message) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-        String timestamp = dateFormat.format(new Date());
+    private void appendMessage(String user, String message, String timestamp) {
+
 
         String formattedMessage = String.format("[%s] %s: %s%n", timestamp, user, message);
 

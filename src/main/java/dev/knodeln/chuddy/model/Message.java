@@ -9,9 +9,12 @@ public class Message {
     private ChuddyUser sender;
     private String content;
 
+    private String timeStamp;
+
     public Message(ChuddyUser sender, String content) {
         this.sender = sender;
         this.content = content;
+        this.timeStamp = timeStamp();
     }
 
     public ChuddyUser getSender() {
@@ -26,6 +29,9 @@ public class Message {
         Date thisDate = new Date();
         SimpleDateFormat dateForm = new SimpleDateFormat("dd MMMM hh:mm");
         return dateForm.format(thisDate);
+    }
+    public String getTimeStamp() {
+        return timeStamp;
     }
 
  /*   public static void main(String[] args) {

@@ -1,6 +1,7 @@
 package dev.knodeln.chuddy.view;
 
 import dev.knodeln.chuddy.controller.ForumController;
+import dev.knodeln.chuddy.controller.ViewController;
 import dev.knodeln.chuddy.model.ChuddyDataHandler;
 import dev.knodeln.chuddy.model.DiscussionThread;
 import dev.knodeln.chuddy.model.Forum;
@@ -26,6 +27,7 @@ public class ChatForumGUI extends JFrame {
 
 
     public ChatForumGUI() {
+        JFrame frame = this;
         messageTextArea = new JTextArea(10, 30);
         messageDisplayArea = new JTextArea(30, 30);
 
@@ -41,10 +43,19 @@ public class ChatForumGUI extends JFrame {
         });
 
         JButton threadButton = new JButton("View Threads");
+        JButton profilePageButton = new JButton("Profile Page");
+
         threadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 viewAllThreads();
+            }
+        });
+        profilePageButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ViewController.setProfilePageView();
+                frame.dispose();
             }
         });
 
@@ -71,6 +82,7 @@ public class ChatForumGUI extends JFrame {
         JPanel comboBoxPanel = new JPanel();
         comboBoxPanel.setLayout(new BorderLayout());
         comboBoxPanel.add(threadButton, BorderLayout.WEST);
+        comboBoxPanel.add(profilePageButton);
 
         // main-panel for text-area panel and combo-box panel
         JPanel mainPanel = new JPanel();

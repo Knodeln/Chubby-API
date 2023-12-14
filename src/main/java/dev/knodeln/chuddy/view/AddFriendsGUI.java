@@ -57,10 +57,16 @@ public class AddFriendsGUI extends JFrame{
     private class FriendTableModel extends AbstractTableModel {
         private ArrayList<ChuddyUser> friends;
 
-        private String[] columnNames = {"Name", "Action"};
+        private String[] columnNames = {"Name", "Add"};
+
+        @Override
+        public String getColumnName(int column) {
+            return columnNames[column];
+        }
 
         public FriendTableModel(List<ChuddyUser> initialFriends) {
             this.friends = new ArrayList<>(initialFriends);
+
         }
 
         public void removeFriend(ChuddyUser friend) {
