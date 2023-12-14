@@ -130,7 +130,6 @@ public class ChatForumGUI extends JFrame {
             }
         });
 
-
         JScrollPane scrollPane = new JScrollPane(threadsTextArea);
         viewThreadsDialog.add(scrollPane, BorderLayout.CENTER);
 
@@ -144,36 +143,37 @@ public class ChatForumGUI extends JFrame {
         viewMyThreadsDialog.setLayout(new BorderLayout());
         JTextArea myThreadsTextArea = new JTextArea();
         myThreadsTextArea.setEditable(false);
-
-        for (DiscussionThread thread : ForumController.getUserThreads(currentUser)) {
+    
+        List<DiscussionThread> userThreads = ForumController.getUserThreads(currentUser);
+    
+        for (DiscussionThread thread : userThreads) {
             myThreadsTextArea.append("Thread: " + thread.getThreadName() + "\n");
         }
-
-        JScrollPane scrollPane = new JScrollPane(myThreadsTextArea);
-        viewMyThreadsDialog.add(scrollPane, BorderLayout.CENTER);
-
-        viewMyThreadsDialog.setSize(400, 400);
-        viewMyThreadsDialog.setLocationRelativeTo(this);
-        viewMyThreadsDialog.setVisible(true);
-
+    
         myThreadsTextArea.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Point point = new Point(e.getX(), e.getY());
-                int offset = myThreadsTextArea.viewToModel2D(point);
+                Point p = new Point(e.getX(), e.getY());
+                int offset = myThreadsTextArea.viewToModel2D(p);
                 try {
                     int line = myThreadsTextArea.getLineOfOffset(offset);
                     String threadName = myThreadsTextArea.getText().split("\n")[line].replace("Thread: ", "").trim();
                     ForumController.selectThread(threadName);
-                        
                     viewSelectedThread();
                 } catch (BadLocationException ex) {
                     ex.printStackTrace();
                 }
             }
-            
         });
+    
+        JScrollPane scrollPane = new JScrollPane(myThreadsTextArea);
+        viewMyThreadsDialog.add(scrollPane, BorderLayout.CENTER);
+    
+        viewMyThreadsDialog.setSize(400, 400);
+        viewMyThreadsDialog.setLocationRelativeTo(this);
+        viewMyThreadsDialog.setVisible(true);
     }
+    
 
     private void addNewThread() {
         String threadname = JOptionPane.showInputDialog(this, "Enter a name for the new thread");
@@ -187,10 +187,13 @@ public class ChatForumGUI extends JFrame {
     private void viewSelectedThread() {
         System.out.println("viewSelectedThread() called");
         selectedThread = ForumController.getSelectedThread();
+        System.out.println("Selected Thread: " + selectedThread);
+
         if (selectedThread != null) {
             messageDisplayArea.setText("");
 
             List<Message> messages = selectedThread.getMessagesCopy();
+            System.out.println("Number of messages in the selected thread: " + messages.size());
 
             if (messages.isEmpty()) {
                 System.out.println("No messages in the selected thread.");
