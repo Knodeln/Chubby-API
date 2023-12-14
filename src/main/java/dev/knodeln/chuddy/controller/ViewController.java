@@ -22,4 +22,10 @@ public class ViewController {
     public static void setAddFriendsView(){
         new AddFriendsGUI().setVisible(true);
     }
+    public static void setMyFriendsView() {
+        new MyFriendsGUI().setVisible(true);
+    }
+    public static void setConversationFrameView() {
+        new ConversationFrame().setVisible(true);
+    }
 }

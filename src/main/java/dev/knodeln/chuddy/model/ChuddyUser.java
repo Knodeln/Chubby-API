@@ -40,7 +40,7 @@ public class ChuddyUser {
 
     private List<Conversation> conversations;
 
-    private List<ChuddyUser> friends;
+    private List<String> friends;
 
     public ChuddyUser(String name, String age, String email, String password, String edProgramme, String year, String gender) {
         this.name = name;
@@ -54,7 +54,7 @@ public class ChuddyUser {
         this.profilePicture = null;
         this.interests = null;
         this.conversations = null;
-        this.friends = new ArrayList<ChuddyUser>();
+        this.friends = new ArrayList<String>();
     }
 
 
@@ -101,11 +101,11 @@ public class ChuddyUser {
     public void addConversation(Conversation conversation) {
         conversations.add(conversation);
     }
-    public List<ChuddyUser> getFriends() {
+    public List<String> getFriends() {
         return friends;
     }
 
-    public void addFriend(ChuddyUser newFriend) {
+    public void addFriend(String newFriend) {
         this.friends.add(newFriend);
     }
 }

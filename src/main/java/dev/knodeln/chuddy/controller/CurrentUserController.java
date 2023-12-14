@@ -20,7 +20,13 @@ public class CurrentUserController {
         UserService.updateUser(ChuddyDataHandler.getUserLoggedIn(), name, age, description, edProgramme, year, gender, profilePicture);
     }
     public static void addFriend (ChuddyUser newFriend) {
-        ChuddyDataHandler.addFriend(newFriend);
+        UserService.addFriend(newFriend, ChuddyDataHandler.getUserLoggedIn());
+    }
+    public static List<ChuddyUser> getAllUsersNotFriended(){
+        return ChuddyDataHandler.allUsersNotFriended();
+    }
+    public static List<ChuddyUser> getAllFriends() {
+        return ChuddyDataHandler.allFriends();
     }
 
 }

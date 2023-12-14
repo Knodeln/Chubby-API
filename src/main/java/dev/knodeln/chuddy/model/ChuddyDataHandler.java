@@ -80,14 +80,24 @@ public class ChuddyDataHandler {
         List<ChuddyUser> allUsersNoFriends = new ArrayList<>(getAllUsers());
         allUsersNoFriends.remove(getUserLoggedIn());
         for (ChuddyUser user :getAllUsers()) {
-            if(getUserLoggedIn().getFriends().contains(user)) {
-                allUsersNoFriends.remove(user);
+            for(String friend : getUserLoggedIn().getFriends()) {
+                if(friend.equals(user.getName())) {
+                    allUsersNoFriends.remove(user);
+                }
             }
         }
         return allUsersNoFriends;
     }
-    public static void addFriend(ChuddyUser newFriend) {
-        getUserLoggedIn().addFriend(newFriend);
-        newFriend.addFriend(getUserLoggedIn());
+    public static List<ChuddyUser> allFriends() {
+        List<ChuddyUser> allFriends = new ArrayList<>();
+        for (ChuddyUser user :getAllUsers()) {
+            for(String friend : getUserLoggedIn().getFriends()) {
+                if(friend.equals(user.getName())) {
+                    allFriends.add(user);
+                }
+            }
+        }
+        return allFriends;
     }
+
 }

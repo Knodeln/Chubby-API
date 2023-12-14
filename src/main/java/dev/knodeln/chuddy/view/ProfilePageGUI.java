@@ -14,7 +14,7 @@ import java.util.Arrays;
 public class ProfilePageGUI extends JFrame implements ActionListener {
     JTextField nameField, ageField, edProgrammeField, yearField, genderField, profilePicField;
     JTextArea descriptionArea, interestsArea;
-    JButton logoutButton, forumButton, saveButton, eventCalenderButton;
+    JButton logoutButton, forumButton, saveButton, addFriendsButton, viewFriendsButton, eventCalenderButton;
 
     JPanel buttonPanel1, buttonPanel2;
 
@@ -25,7 +25,7 @@ public class ProfilePageGUI extends JFrame implements ActionListener {
         setSize(450, 400);
         setLocationRelativeTo(null);
 
-        this.setLayout(new GridLayout(9, 3, 10, 5)); // Adjust layout as needed
+        this.setLayout(new GridLayout(10, 3, 10, 5)); // Adjust layout as needed
 
         this.add(new JLabel("Name:"));
         nameField = new JTextField(ChuddyDataHandler.getUserLoggedIn().getName());
@@ -78,12 +78,21 @@ public class ProfilePageGUI extends JFrame implements ActionListener {
         buttonPanel2.add(forumButton);
         forumButton.addActionListener(this);
 
+        addFriendsButton = new JButton("Add Friends");
+        buttonPanel2.add(addFriendsButton);
+        addFriendsButton.addActionListener(this);
+
+        viewFriendsButton = new JButton("My friends");
+        //buttonPanel2.add(viewFriendsButton);
+        viewFriendsButton.addActionListener(this);
+
         eventCalenderButton = new JButton("Event Calender");
-        buttonPanel2.add(eventCalenderButton);
+        //buttonPanel2.add(eventCalenderButton);
         eventCalenderButton.addActionListener(this);
 
         this.add(buttonPanel1);
         this.add(buttonPanel2);
+        this.add(viewFriendsButton);
     }
 
 
@@ -111,10 +120,13 @@ public class ProfilePageGUI extends JFrame implements ActionListener {
             ViewController.setForumView();
             this.dispose();
         }
-        if(e.getSource()==eventCalenderButton) {
+        if(e.getSource()==addFriendsButton) {
             ViewController.setAddFriendsView();
             this.dispose();
         }
-
+        if(e.getSource()==viewFriendsButton) {
+            ViewController.setMyFriendsView();
+            this.dispose();
+        }
     }
 }

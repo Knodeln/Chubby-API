@@ -1,6 +1,6 @@
 package dev.knodeln.chuddy.view;
 
-import dev.knodeln.chuddy.controller.ChuddyUserController;
+import dev.knodeln.chuddy.controller.ChatController;
 import dev.knodeln.chuddy.controller.CurrentUserController;
 import dev.knodeln.chuddy.controller.ViewController;
 import dev.knodeln.chuddy.model.ChuddyDataHandler;
@@ -16,17 +16,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class AddFriendsGUI extends JFrame{
+public class MyFriendsGUI extends JFrame{
     private JFrame frame;
     private FriendTableModel friendTableModel;
     private JTable friendTable;
 
-    public AddFriendsGUI() {
+    public MyFriendsGUI() {
         frame = this;
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 300);
 
-        friendTableModel = new FriendTableModel(CurrentUserController.getAllUsersNotFriended());
+        friendTableModel = new FriendTableModel(CurrentUserController.getAllFriends());
         friendTable = new JTable(friendTableModel);
 
         // Set custom renderer for the "Action" column
@@ -85,7 +85,7 @@ public class AddFriendsGUI extends JFrame{
                 case 0:
                     return friend.getName();
                 case 1:
-                    return "Add Friend";
+                    return "Chat";
                 default:
                     return null;
             }
@@ -101,9 +101,9 @@ public class AddFriendsGUI extends JFrame{
         public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
             // Handle the action when the but ton is clicked
             if (columnIndex == 1) {
-                CurrentUserController.addFriend(friends.get(rowIndex));
-                JOptionPane.showMessageDialog(frame, "Added " + friends.get(rowIndex).getName() + " as a friend.");
-                removeFriend(friends.get(rowIndex));
+                ChatController.selectConversation(friends.get(rowIndex));
+                ViewController.setConversationFrameView();
+                frame.dispose();
             }
         }
     }
@@ -143,7 +143,7 @@ public class AddFriendsGUI extends JFrame{
 
         @Override
         public Object getCellEditorValue() {
-            return "Add Friend";
+            return "Chat";
         }
     }
 

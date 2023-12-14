@@ -37,4 +37,8 @@ public class UserService {
         user.setGender(gender);
         user.setProfilePicture(profilePicture);
     }
+    public static void addFriend(ChuddyUser newFriend, ChuddyUser loggedIn) {
+        loggedIn.addFriend(newFriend.getName());
+        newFriend.addFriend(loggedIn.getName());
+    }
 }
