@@ -37,4 +37,13 @@ public class DiscussionThread {
     public List<Message> getMessagesCopy() {
         return new ArrayList<>(messages);
     }
+
+    public boolean containsUser(ChuddyUser user) {
+        for (Message message : messages) {
+            if (message.getSender().equals(user)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

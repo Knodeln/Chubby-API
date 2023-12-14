@@ -31,7 +31,7 @@ public class Forum {
     public void addUser(ChuddyUser user) {
         users.add(user);
     }
-
+//just nu har trådar ingen user som skapat dom
     public DiscussionThread createThread(String threadName) {
         DiscussionThread newThread = new DiscussionThread(null, threadName);
         threads.add(newThread);

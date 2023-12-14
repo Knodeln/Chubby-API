@@ -45,14 +45,6 @@ public class ChatForumGUI extends JFrame {
             }
         });
 
-        JButton myThreadsButton = new JButton("My Threads");
-        myThreadsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                viewMyThreads();
-            }
-        });
-
         // sent messages display
         JPanel messagesPanel = new JPanel();
         messagesPanel.setLayout(new BorderLayout());
@@ -88,30 +80,6 @@ public class ChatForumGUI extends JFrame {
         setVisible(true);
     }
 
-    // private void postMessage() {
-    // String content = messageTextArea.getText();
-    // ChuddyUser currentUser = new ChuddyUser("Senja");
-
-    // if (forum.getThreads().isEmpty()) {
-    // forum.addMessage(currentUser, content);
-    // String threadname = JOptionPane.showInputDialog(this, "bajs");
-
-    // if (threadname != null && !threadname.isEmpty()) {
-    // selectedThread = forum.createThread(threadname);
-    // System.out.println("New thread created: " + selectedThread.getThreadName());
-
-    // }
-    // } else {
-
-    // forum.addMessage(currentUser, content);
-    // System.out.println("Message added to the selected thread: " +
-    // selectedThread.getThreadName());
-    // messageTextArea.setText("");
-
-    // }
-    // viewSelectedThread();
-    // }
-
     private void viewAllThreads() {
         JDialog viewThreadsDialog = new JDialog(this, "View Threads", true);
         viewThreadsDialog.setLayout(new BorderLayout());
@@ -132,8 +100,17 @@ public class ChatForumGUI extends JFrame {
             }
         });
 
+        JButton myThreadsButton = new JButton("My Threads");
+        myThreadsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewMyThreads();
+            }
+        });
+
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(newThreadButton);
+        buttonPanel.add(myThreadsButton);
         viewThreadsDialog.add(buttonPanel, BorderLayout.SOUTH);
 
         threadsTextArea.addMouseListener(new MouseAdapter() {
@@ -145,13 +122,14 @@ public class ChatForumGUI extends JFrame {
                     int line = threadsTextArea.getLineOfOffset(offset);
                     String threadName = threadsTextArea.getText().split("\n")[line].replace("Thread: ", "").trim();
                     ForumController.selectThread(threadName);
-                    //selectedThread = forum.getThreadByName(threadName);
+
                     viewSelectedThread();
                 } catch (BadLocationException ex) {
                     ex.printStackTrace();
                 }
             }
         });
+
 
         JScrollPane scrollPane = new JScrollPane(threadsTextArea);
         viewThreadsDialog.add(scrollPane, BorderLayout.CENTER);
@@ -162,11 +140,43 @@ public class ChatForumGUI extends JFrame {
     }
 
     private void viewMyThreads() {
+        JDialog viewMyThreadsDialog = new JDialog(this, "My threads", true);
+        viewMyThreadsDialog.setLayout(new BorderLayout());
+        JTextArea myThreadsTextArea = new JTextArea();
+        myThreadsTextArea.setEditable(false);
 
+        for (DiscussionThread thread : ForumController.getUserThreads(currentUser)) {
+            myThreadsTextArea.append("Thread: " + thread.getThreadName() + "\n");
+        }
+
+        JScrollPane scrollPane = new JScrollPane(myThreadsTextArea);
+        viewMyThreadsDialog.add(scrollPane, BorderLayout.CENTER);
+
+        viewMyThreadsDialog.setSize(400, 400);
+        viewMyThreadsDialog.setLocationRelativeTo(this);
+        viewMyThreadsDialog.setVisible(true);
+
+        myThreadsTextArea.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Point point = new Point(e.getX(), e.getY());
+                int offset = myThreadsTextArea.viewToModel2D(point);
+                try {
+                    int line = myThreadsTextArea.getLineOfOffset(offset);
+                    String threadName = myThreadsTextArea.getText().split("\n")[line].replace("Thread: ", "").trim();
+                    ForumController.selectThread(threadName);
+                        
+                    viewSelectedThread();
+                } catch (BadLocationException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            
+        });
     }
 
     private void addNewThread() {
-        String threadname = JOptionPane.showInputDialog(this, "bajs");
+        String threadname = JOptionPane.showInputDialog(this, "Enter a name for the new thread");
 
         if (threadname != null && !threadname.isEmpty()) {
             ForumController.createThread(threadname);
