@@ -42,6 +42,8 @@ public class ChuddyUser {
         this.name = name;
     }
 
+    
+
     public static void main(String[] args) {
         ChuddyUser user = new ChuddyUser("Senja");
         System.out.println(user.name);

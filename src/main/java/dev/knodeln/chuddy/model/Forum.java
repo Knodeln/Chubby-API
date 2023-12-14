@@ -4,10 +4,7 @@ import dev.knodeln.chuddy.controller.ForumController;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
-
 import javax.swing.JOptionPane;
 
 public class Forum {
@@ -21,7 +18,6 @@ public class Forum {
         this.messages = new ArrayList<>();
         this.threads = new ArrayList<>();
         this.users = new ArrayList<>();
-
     }
 
     public DiscussionThread getSelectedThread() {
@@ -31,22 +27,19 @@ public class Forum {
     public void addUser(ChuddyUser user) {
         users.add(user);
     }
-//just nu har trådar ingen user som skapat dom
+
     public DiscussionThread createThread(String threadName) {
         DiscussionThread newThread = new DiscussionThread(null, threadName);
         threads.add(newThread);
         selectedThread = newThread;
-        
+
         System.out.println("New thread created: " + selectedThread.getThreadName());
         System.out.println(selectedThread);
 
-        return newThread; // Return the created thread
+        return newThread;
     }
 
     public void addMessage(String content, ChuddyUser sender) {
-        // sender = getCurrentUser()
-
-        //ChuddyUser sender = new ChuddyUser("Senja");
 
         Message message = new Message(sender, content);
 
@@ -63,21 +56,17 @@ public class Forum {
         }
     }
 
-    // dela upp denna metod i 2
     void selectOrCreateThread() {
-        // first message = create first thread
         if (threads.isEmpty()) {
             String threadName = JOptionPane.showInputDialog("Enter the name of the new thread:");
             if (threadName != null && !threadName.isEmpty()) {
                 selectedThread = createThread(threadName);
 
             }
-            // add new thread
+
         } else {
             String threadName = JOptionPane.showInputDialog("Enter the name of the thread:");
             selectedThread = createThread(threadName);
-    
-            // selectedThread = getThreadByName(threadName);
 
         }
     }
@@ -105,7 +94,8 @@ public class Forum {
                 for (Message message : messages) {
                     if (message != null) {
                         System.out
-                                .println(message.getSender() + ": " + message.getContent() + " " + message.timeStamp());
+                                .println(message.getSender() + ": " + message.getContent() + " "
+                                        + message.getTimeStamp());
                     } else {
                         System.out.println("No messages found in the thread");
                     }
