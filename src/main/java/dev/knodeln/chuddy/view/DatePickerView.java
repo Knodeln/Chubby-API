@@ -10,6 +10,8 @@
         private JComboBox<Integer> yearCbx;
         private JButton selectDateButton;
 
+        private JTextField eventNameTextField;
+
         public DatePickerView() {
             super("Simple date picker");
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -17,6 +19,12 @@
             setLocationRelativeTo(null);
 
             JPanel panel = new JPanel();
+
+            JLabel eventNameLabel = new JLabel("Event name:");
+            eventNameTextField = new JTextField(20);  // Set the desired width of the text field
+
+            panel.add(eventNameLabel);
+            panel.add(eventNameTextField);
 
             //Kunna välja dag
             dayCbx = new JComboBox<>();

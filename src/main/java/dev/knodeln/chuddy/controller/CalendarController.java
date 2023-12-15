@@ -9,29 +9,28 @@ import dev.knodeln.chuddy.view.DatePickerView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class CalendarController {
-    private CalendarModel model;
+    private static final CalendarModel calendarModel = new CalendarModel();
     private CalendarView view;
-    private DatePickerView datePicker;  
+    private DatePickerView datePicker;
 
-    public CalendarController(CalendarModel model, CalendarView view) {
-        this.model = model;
-        this.view = view;
-
-        datePicker = new DatePickerView();
-
-        view.addCreateEventButtonListener(new CreateEventListener());
-        datePicker.addSelectDateButtonListener(new DatePickerButtonListener());
-
+    public static List<CustomEvent> getEventsForDate(LocalDate date) {
+        return calendarModel.getEventsForDate(date);
     }
 
-    private class CreateEventListener implements ActionListener {
+/*    private class CreateEventListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             view.showDatePicker();
         }
+    }*/
+    public static void addEvent(CustomEvent event) {
+        calendarModel.addEvent(event);
     }
 
 
@@ -51,7 +50,7 @@ public class CalendarController {
             String selectedDate = view.getSelectedDate();
 
 
-            model.setSelectedDate(selectedDate);
+            calendarModel.setSelectedDate(selectedDate);
             view.hideDatePicker();
         }
     }

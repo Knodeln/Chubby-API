@@ -1,11 +1,12 @@
 package dev.knodeln.chuddy.model;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class CustomEvent {
     private String eventName;
-    private Date eventDate;
+    private LocalDate eventDate;
 
-    public CustomEvent (String eventName, Date eventDate) {
+    public CustomEvent (String eventName, LocalDate eventDate) {
         this.eventName = eventName;
         this.eventDate = eventDate;
     }
@@ -18,11 +19,11 @@ public class CustomEvent {
         this.eventName = eventName;
     }
 
-    public Date getEventDate() {
+    public LocalDate getEventDate() {
         return eventDate;
     }
 
-    public void setEventDate(Date evenDate) {
+    public void setEventDate(LocalDate evenDate) {
         this.eventDate = evenDate;
     }
 

@@ -7,7 +7,11 @@ import java.awt.event.ActionListener;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+
+import dev.knodeln.chuddy.controller.CalendarController;
 import dev.knodeln.chuddy.model.CalendarModel;
+import dev.knodeln.chuddy.model.CustomEvent;
 
 public class CalendarView extends JFrame {
     private JButton createEventButton;
@@ -17,7 +21,7 @@ public class CalendarView extends JFrame {
     private JLabel weekLabel;
     private LocalDate displayedWeek;
 
-    public CalendarView(CalendarModel model) {
+    public CalendarView() {
         super("Event");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 500);
@@ -62,7 +66,7 @@ public class CalendarView extends JFrame {
         });
 
         displayedWeek = LocalDate.now();
-        updatWeekLabel();
+        updateWeekLabel();
         setLabels(displayedWeek);
         
         JPanel weekNavPanel = new JPanel(new FlowLayout());
@@ -77,11 +81,11 @@ public class CalendarView extends JFrame {
 
     private void updateWeek(int offset) {
         displayedWeek = displayedWeek.plusWeeks(offset);
-        updatWeekLabel();
+        updateWeekLabel();
         setLabels(displayedWeek);
     }
 
-    private void updatWeekLabel() {
+    private void updateWeekLabel() {
         DateTimeFormatter weekFormatter = DateTimeFormatter.ofPattern("'Week: 'w");
         weekLabel.setText(weekFormatter.format(displayedWeek));
     }
@@ -116,11 +120,24 @@ public class CalendarView extends JFrame {
             JLabel dateLabel = new JLabel(date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
             dateLabel.setHorizontalAlignment(SwingConstants.CENTER);
             calendarPanel.add(dateLabel);
+
+            List<CustomEvent> events = CalendarController.getEventsForDate(date);
+            try {
+                for (CustomEvent event : events) {
+                    JLabel eventLabel = new JLabel(event.getEventName());
+                    eventLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                    calendarPanel.add(eventLabel);
+                }
+            }
+            catch(Exception e) {
+
+            }
         }
 
         revalidate();
         repaint();
     }
+
 
     // public void updateEvents(List<CustomEvent> events) {
     //     StringBuilder eventText = new StringBuilder();
@@ -132,11 +149,24 @@ public class CalendarView extends JFrame {
     // }
  
 
+/*     public void updateEvents(List<CustomEvent> events) {
+         StringBuilder eventText = new StringBuilder();
+         for (CustomEvent event : events) {
+             String eventInfo = event.toString();
+             eventText.append(eventInfo).append("\n");
+        }
+          eventArea.setText("Events: \n" + eventText.toString());
+      }*/
+
+
+
+
 
         public static void main(String[] args) {
         SwingUtilities. invokeLater(() -> {
-            CalendarModel model = new CalendarModel();
-            CalendarView calendarView = new CalendarView(model);
+            LocalDate date = LocalDate.parse("2023-12-16");
+            CalendarController.addEvent(new CustomEvent("test even", date));
+            CalendarView calendarView = new CalendarView();
             //calendarApp.setupDatePicker();
             calendarView.setVisible(true);
         }); 
