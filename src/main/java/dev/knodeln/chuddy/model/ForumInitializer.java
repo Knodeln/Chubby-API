@@ -23,6 +23,8 @@ public class ForumInitializer {
         ForumController.addMessage("Hej! Jag söker någon att plugga med.", user1);
         ForumController.addMessage("Jag är också intresserad. Vilket ämne?", user2);
 
+        ForumController.selectThread(null);
+
     }
 
 }
