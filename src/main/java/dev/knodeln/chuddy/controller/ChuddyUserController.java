@@ -27,16 +27,5 @@ public class ChuddyUserController {
         ChuddyDataHandler.getAllUsers().removeIf(user -> user.getEmail().equals(userToBeDeleted.getEmail()));
 
     }
-    public static void addFriend(ChuddyUser user1, ChuddyUser user2) {
-        /*List<ChuddyUser> friendsForUser1 = user1.getFriends();
-        friendsForUser1.add(user2);
-        user1.setFriends(friendsForUser1);
-
-        List<ChuddyUser> friendForUser2 = user2.getFriends();
-        friendForUser2.add(user1);
-        user1.setFriends(friendForUser2);*/
-        //Should add an empty conversation between users when adding friends, need to move logic to model
-
-    }
 
 }

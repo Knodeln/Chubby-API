@@ -1,6 +1,10 @@
-package dev.knodeln.chuddy.model;
+package dev.knodeln.chuddy.view;
 
+import dev.knodeln.chuddy.controller.CurrentUserController;
 import dev.knodeln.chuddy.controller.ForumController;
+import dev.knodeln.chuddy.model.ChuddyUser;
+import dev.knodeln.chuddy.model.DiscussionThread;
+import dev.knodeln.chuddy.model.Message;
 
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
@@ -16,13 +20,11 @@ import java.util.List;
 
 public class ChatForumGUI extends JFrame {
 
-    private Forum forum;
+
     private JTextArea messageTextArea;
     private JTextArea messageDisplayArea;
 
     private DiscussionThread selectedThread;
-
-    private ChuddyUser currentUser = new ChuddyUser("Senja");
 
     public ChatForumGUI() {
 
@@ -33,7 +35,7 @@ public class ChatForumGUI extends JFrame {
         postButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ForumController.addMessage(messageTextArea.getText(), currentUser);
+                ForumController.addMessage(messageTextArea.getText(), CurrentUserController.getCurrentUser());
                 viewSelectedThread();
                 messageTextArea.setText("");
             }
@@ -151,7 +153,7 @@ public class ChatForumGUI extends JFrame {
         JTextArea myThreadsTextArea = new JTextArea();
         myThreadsTextArea.setEditable(false);
 
-        List<DiscussionThread> userThreads = ForumController.getUserThreads(currentUser);
+        List<DiscussionThread> userThreads = ForumController.getUserThreads(CurrentUserController.getCurrentUser());
 
         for (DiscussionThread thread : userThreads) {
             myThreadsTextArea.append("Thread: " + thread.getThreadName() + "\n");

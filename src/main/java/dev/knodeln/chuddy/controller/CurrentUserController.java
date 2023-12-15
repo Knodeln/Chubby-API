@@ -29,4 +29,8 @@ public class CurrentUserController {
         return ChuddyDataHandler.allFriends();
     }
 
+    public static ChuddyUser getCurrentUser() {
+        return ChuddyDataHandler.getUserLoggedIn();
+    }
+
 }

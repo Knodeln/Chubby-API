@@ -1,6 +1,7 @@
 package dev.knodeln.chuddy.controller;
 
 import dev.knodeln.chuddy.model.*;
+import dev.knodeln.chuddy.view.ChatForumGUI;
 
 import java.util.List;
 import java.util.ArrayList;
