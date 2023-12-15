@@ -4,11 +4,8 @@ import dev.knodeln.chuddy.controller.ForumController;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
-import javax.swing.JOptionPane;
 
 public class Forum {
     private List<Message> messages;
@@ -21,7 +18,6 @@ public class Forum {
         this.messages = new ArrayList<>();
         this.threads = new ArrayList<>();
         this.users = new ArrayList<>();
-
     }
 
     public DiscussionThread getSelectedThread() {
@@ -36,17 +32,14 @@ public class Forum {
         DiscussionThread newThread = new DiscussionThread(null, threadName);
         threads.add(newThread);
         selectedThread = newThread;
-        
+
         System.out.println("New thread created: " + selectedThread.getThreadName());
         System.out.println(selectedThread);
 
-        return newThread; // Return the created thread
+        return newThread;
     }
 
     public void addMessage(String content, ChuddyUser sender) {
-        // sender = getCurrentUser()
-
-        //ChuddyUser sender = new ChuddyUser("Senja");
 
         Message message = new Message(sender, content);
 
@@ -56,30 +49,27 @@ public class Forum {
             System.out.println("Message added to the selected thread: " + selectedThread.getThreadName());
 
         } else {
-            System.out.println("No thread selected. Choose a thread or create a new one:");
             selectOrCreateThread();
             selectedThread.addMessage(message);
             System.out.println("Message added to the selected thread: " + selectedThread.getThreadName());
         }
     }
 
-    // dela upp denna metod i 2
     void selectOrCreateThread() {
-        // first message = create first thread
-        if (threads.isEmpty()) {
-            String threadName = JOptionPane.showInputDialog("Enter the name of the new thread:");
-            if (threadName != null && !threadName.isEmpty()) {
-                selectedThread = createThread(threadName);
 
+        selectedThread = createThread(ForumController.getNewThreadName());
+
+    }
+
+    public List<DiscussionThread> getUserThreads(ChuddyUser user) {
+        List<DiscussionThread> userThreads = new ArrayList<>();
+
+        for (DiscussionThread thread : this.getThreads()) {
+            if (thread.containsUser(user)) {
+                userThreads.add(thread);
             }
-            // add new thread
-        } else {
-            String threadName = JOptionPane.showInputDialog("Enter the name of the thread:");
-            selectedThread = createThread(threadName);
-    
-            // selectedThread = getThreadByName(threadName);
-
         }
+        return userThreads;
     }
 
     public void displayThreads() {
@@ -105,7 +95,8 @@ public class Forum {
                 for (Message message : messages) {
                     if (message != null) {
                         System.out
-                                .println(message.getSender() + ": " + message.getContent() + " " + message.timeStamp());
+                                .println(message.getSender() + ": " + message.getContent() + " "
+                                        + message.getTimeStamp());
                     } else {
                         System.out.println("No messages found in the thread");
                     }

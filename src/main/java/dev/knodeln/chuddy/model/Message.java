@@ -8,13 +8,12 @@ import java.text.SimpleDateFormat;
 public class Message {
     private ChuddyUser sender;
     private String content;
-
-    private String timeStamp;
+    private String timestamp;
 
     public Message(ChuddyUser sender, String content) {
         this.sender = sender;
         this.content = content;
-        this.timeStamp = timeStamp();
+        this.timestamp = generateTimeStamp();
     }
 
     public ChuddyUser getSender() {
@@ -24,19 +23,15 @@ public class Message {
     public String getContent() {
         return content;
     }
-// fixa så att timeStamp inte uppdateras när man skickar ett nytt meddelande
-    public String timeStamp() {
-        Date thisDate = new Date();
-        SimpleDateFormat dateForm = new SimpleDateFormat("dd MMMM hh:mm");
-        return dateForm.format(thisDate);
-    }
+
     public String getTimeStamp() {
-        return timeStamp;
+        return timestamp;
     }
 
- /*   public static void main(String[] args) {
-        ChuddyUser test1 = new ChuddyUser("Senja");
-        ChuddyUser test2 = new ChuddyUser("Joel");
-        Message testmessage = new Message(test2, "uiwheiahweuiehiqhweu");
-    }*/
+    private String generateTimeStamp() {
+        Date thisDate = new Date();
+        SimpleDateFormat dateForm = new SimpleDateFormat("[HH:mm:ss]");
+        return dateForm.format(thisDate);
+
+    }
 }

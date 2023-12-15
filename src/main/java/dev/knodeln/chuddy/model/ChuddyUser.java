@@ -73,6 +73,7 @@ public class ChuddyUser {
     public String getAge() {
         return age;
     }
+    
 
     public String getUserDescription() {
         return userDescription;
