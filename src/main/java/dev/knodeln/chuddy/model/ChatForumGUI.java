@@ -217,7 +217,6 @@ public class ChatForumGUI extends JFrame {
 
             List<Message> messages = selectedThread.getMessagesCopy();
 
-
             if (messages.isEmpty()) {
                 System.out.println("No messages in the selected thread.");
             } else {

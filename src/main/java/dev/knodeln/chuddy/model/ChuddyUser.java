@@ -7,9 +7,6 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import dev.knodeln.chuddy.controller.ForumController;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection = "chuddyUsers")
@@ -41,21 +38,10 @@ public class ChuddyUser {
         return name;
     }
 
-    public static List<DiscussionThread> getUserThreads(ChuddyUser user) {
-        List<DiscussionThread> userThreads = new ArrayList<>();
-
-        for (DiscussionThread thread : ForumController.getDiscussionThreads()) {
-            if (thread.containsUser(user)) {
-                userThreads.add(thread);
-            }
-        }
-        return userThreads;
-
-    }
-
     ChuddyUser(String name) {
         this.name = name;
     }
+    
 
     public static void main(String[] args) {
         ChuddyUser user = new ChuddyUser("Senja");
