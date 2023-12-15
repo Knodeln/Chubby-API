@@ -2,7 +2,6 @@ package dev.knodeln.chuddy.model;
 import java.util.Date;
 
 public class Event {
-
     private String name;
     private Date date;
 
@@ -15,7 +14,15 @@ public class Event {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Date getDate() {
         return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

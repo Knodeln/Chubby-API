@@ -1,6 +1,7 @@
 package dev.knodeln.chuddy.model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.knodeln.chuddy.Exceptions.UserAlreadyExistsException;
 import dev.knodeln.chuddy.controller.ChuddyUserController;
 
 import java.io.File;
@@ -12,8 +13,17 @@ public class ChuddyDataHandler {
 
     private static List<ChuddyUser> allUsers;
 
+    private static ChuddyUser userLoggedIn;
+
     public static List<ChuddyUser> getAllUsers() {
         return allUsers;
+    }
+    public static ChuddyUser getUserLoggedIn() {
+        return userLoggedIn;
+    }
+
+    public static void setUserLoggedIn(ChuddyUser userLoggedIn) {
+        ChuddyDataHandler.userLoggedIn = userLoggedIn;
     }
 
     public static void startUp() {
@@ -21,8 +31,8 @@ public class ChuddyDataHandler {
     }
     public static void shutDown() {
         serializeUsersToJson(allUsers, "chuddyUsers.json");
-
     }
+
     public static void serializeUsersToJson(List<ChuddyUser> existingUsers, String filePath) {
         try {
 
@@ -55,4 +65,39 @@ public class ChuddyDataHandler {
             return new ArrayList<>();
         }
     }
+    public static void addUser(ChuddyUser newUser) throws UserAlreadyExistsException{
+        for (ChuddyUser user : getAllUsers()) {
+            if (user.getEmail().equals(newUser.getEmail()) || user.getName().equals(newUser.getName())) {
+
+                throw new UserAlreadyExistsException("A user with that email already exists");
+
+            }
+        }
+        getAllUsers().add(newUser);
+
+    }
+    public static List<ChuddyUser> allUsersNotFriended() {
+        List<ChuddyUser> allUsersNoFriends = new ArrayList<>(getAllUsers());
+        allUsersNoFriends.remove(getUserLoggedIn());
+        for (ChuddyUser user :getAllUsers()) {
+            for(String friend : getUserLoggedIn().getFriends()) {
+                if(friend.equals(user.getName())) {
+                    allUsersNoFriends.remove(user);
+                }
+            }
+        }
+        return allUsersNoFriends;
+    }
+    public static List<ChuddyUser> allFriends() {
+        List<ChuddyUser> allFriends = new ArrayList<>();
+        for (ChuddyUser user :getAllUsers()) {
+            for(String friend : getUserLoggedIn().getFriends()) {
+                if(friend.equals(user.getName())) {
+                    allFriends.add(user);
+                }
+            }
+        }
+        return allFriends;
+    }
+
 }
