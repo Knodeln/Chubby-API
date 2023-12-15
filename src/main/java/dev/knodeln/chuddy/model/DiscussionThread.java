@@ -12,7 +12,6 @@ public class DiscussionThread {
         this.threadName = null;
     }
 
-
     public DiscussionThread(Message initialMessage, String threadName) {
         this.messages = new ArrayList<>();
         this.threadName = threadName;

@@ -49,7 +49,6 @@ public class Forum {
             System.out.println("Message added to the selected thread: " + selectedThread.getThreadName());
 
         } else {
-            System.out.println("No thread selected. Choose a thread or create a new one:");
             selectOrCreateThread();
             selectedThread.addMessage(message);
             System.out.println("Message added to the selected thread: " + selectedThread.getThreadName());
@@ -57,18 +56,10 @@ public class Forum {
     }
 
     void selectOrCreateThread() {
-        if (threads.isEmpty()) {
-            String threadName = JOptionPane.showInputDialog("Enter the name of the new thread:");
-            if (threadName != null && !threadName.isEmpty()) {
-                selectedThread = createThread(threadName);
 
-            }
+        String threadName = JOptionPane.showInputDialog("Enter the name of the thread:");
+        selectedThread = createThread(threadName);
 
-        } else {
-            String threadName = JOptionPane.showInputDialog("Enter the name of the thread:");
-            selectedThread = createThread(threadName);
-
-        }
     }
 
     public void displayThreads() {

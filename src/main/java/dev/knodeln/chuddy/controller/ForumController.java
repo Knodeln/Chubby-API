@@ -34,20 +34,12 @@ public class ForumController {
     }
 
     public static void initDefaultForums() {
-
         ForumInitializer.initializeDefaultThreads();
 
     }
 
-    public static List<DiscussionThread> getUserThreads(ChuddyUser user) {
-        List<DiscussionThread> userThreads = new ArrayList<>();
-
-        for (DiscussionThread thread : forum.getThreads()) {
-            if (thread.containsUser(user)) {
-                userThreads.add(thread);
-            }
-        }
-        return userThreads;
+    public static void getUserThreads(ChuddyUser user) {
+        ChuddyUser.getUserThreads(user);
 
     }
 }
