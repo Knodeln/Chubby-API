@@ -1,9 +1,6 @@
 package dev.knodeln.chuddy.controller;
 
-import dev.knodeln.chuddy.model.ChuddyUser;
-import dev.knodeln.chuddy.model.DiscussionThread;
-import dev.knodeln.chuddy.model.Forum;
-import dev.knodeln.chuddy.model.ForumInitializer;
+import dev.knodeln.chuddy.model.*;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -41,14 +38,11 @@ public class ForumController {
 
     public static List<DiscussionThread> getUserThreads(ChuddyUser user) {
         
-        List<DiscussionThread> userThreads = new ArrayList<>();
+        return forum.getUserThreads(user);
 
-        for (DiscussionThread thread : forum.getThreads()) {
-            if (thread.containsUser(user)) {
-                userThreads.add(thread);
-            }
-        }
-        return userThreads;
+    }
 
+    public static String getNewThreadName() {
+        return ChatForumGUI.getNameOfNewThread();
     }
 }

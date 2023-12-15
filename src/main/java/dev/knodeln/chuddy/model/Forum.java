@@ -5,7 +5,7 @@ import dev.knodeln.chuddy.controller.ForumController;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import javax.swing.JOptionPane;
+
 
 public class Forum {
     private List<Message> messages;
@@ -57,9 +57,19 @@ public class Forum {
 
     void selectOrCreateThread() {
 
-        String threadName = JOptionPane.showInputDialog("Enter the name of the thread:");
-        selectedThread = createThread(threadName);
+        selectedThread = createThread(ForumController.getNewThreadName());
 
+    }
+
+    public List<DiscussionThread> getUserThreads(ChuddyUser user) {
+        List<DiscussionThread> userThreads = new ArrayList<>();
+
+        for (DiscussionThread thread : this.getThreads()) {
+            if (thread.containsUser(user)) {
+                userThreads.add(thread);
+            }
+        }
+        return userThreads;
     }
 
     public void displayThreads() {

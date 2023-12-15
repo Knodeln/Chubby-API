@@ -139,6 +139,9 @@ public class ChatForumGUI extends JFrame {
         viewThreadsDialog.setLocationRelativeTo(this);
         viewThreadsDialog.setVisible(true);
     }
+    public static String getNameOfNewThread() {
+        return JOptionPane.showInputDialog("Enter the name of the thread:");
+    }
 
     private void viewMyThreads() {
         JDialog viewMyThreadsDialog = new JDialog(this, "My threads", true);
