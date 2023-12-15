@@ -28,4 +28,7 @@ public class ViewController {
     public static void setConversationFrameView() {
         new ConversationFrame().setVisible(true);
     }
+    public static void setCalenderView() {
+        new CalendarView().setVisible(true);
+    }
 }

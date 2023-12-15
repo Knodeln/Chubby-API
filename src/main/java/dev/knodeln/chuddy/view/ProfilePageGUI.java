@@ -93,6 +93,7 @@ public class ProfilePageGUI extends JFrame implements ActionListener {
         this.add(buttonPanel1);
         this.add(buttonPanel2);
         this.add(viewFriendsButton);
+        this.add(eventCalenderButton);
     }
 
 
@@ -126,6 +127,10 @@ public class ProfilePageGUI extends JFrame implements ActionListener {
         }
         if(e.getSource()==viewFriendsButton) {
             ViewController.setMyFriendsView();
+            this.dispose();
+        }
+        if(e.getSource()==eventCalenderButton) {
+            ViewController.setCalenderView();
             this.dispose();
         }
     }

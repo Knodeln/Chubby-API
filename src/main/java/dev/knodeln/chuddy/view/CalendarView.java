@@ -10,11 +10,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import dev.knodeln.chuddy.controller.CalendarController;
+import dev.knodeln.chuddy.controller.ViewController;
 import dev.knodeln.chuddy.model.CalendarModel;
 import dev.knodeln.chuddy.model.CustomEvent;
 
 public class CalendarView extends JFrame {
-    private JButton createEventButton;
+    private JButton createEventButton, profilePageButton;
     private DatePickerView datePicker;
     private JPanel calendarPanel;
     private JLabel titleLabel;
@@ -51,6 +52,9 @@ public class CalendarView extends JFrame {
         createEventButton = new JButton("Skapa event");
         getContentPane().add(createEventButton, BorderLayout.SOUTH);
 
+        profilePageButton = new JButton("Profile Page");
+        getContentPane().add(profilePageButton);
+
         calendarPanel = new JPanel(new GridLayout(0, 1));
         getContentPane().add(new JScrollPane(calendarPanel), BorderLayout.CENTER);
 
@@ -76,7 +80,13 @@ public class CalendarView extends JFrame {
         createEventButton = new JButton("Skapa event");
         createEventButton.addActionListener(e -> showDatePicker());
         bottomPanel.add(createEventButton);
+        profilePageButton.addActionListener(e -> profilePageAction());
+        bottomPanel.add(profilePageButton);
         getContentPane().add(bottomPanel, BorderLayout.SOUTH);
+    }
+    private void profilePageAction() {
+        ViewController.setProfilePageView();
+        this.dispose();
     }
 
     private void updateWeek(int offset) {
