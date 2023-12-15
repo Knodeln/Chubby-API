@@ -1,20 +1,31 @@
     package dev.knodeln.chuddy.view;
 
+    import dev.knodeln.chuddy.controller.CalendarController;
+    import dev.knodeln.chuddy.model.CustomEvent;
+    import dev.knodeln.chuddy.model.Event;
+
     import javax.swing.*;
+    import java.awt.event.ActionEvent;
     import java.awt.event.ActionListener;
+    import java.time.LocalDate;
+    import java.util.Arrays;
     import java.util.Calendar;
+    import java.util.List;
 
     public class DatePickerView extends JFrame {
         private JComboBox<Integer> dayCbx;
         private JComboBox<String> monthCbx;
         private JComboBox<Integer> yearCbx;
-        private JButton selectDateButton;
+        private JButton createEventButton;
 
         private JTextField eventNameTextField;
+        String[] months = {"Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli",
+                "Augusti", "September", "Oktober", "November", "December"};
 
         public DatePickerView() {
             super("Simple date picker");
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            JFrame frame = this;
+
             setSize(320, 150);  
             setLocationRelativeTo(null);
 
@@ -31,10 +42,7 @@
             for (int i = 1; i <= 31; i++) {
                 dayCbx.addItem(i);
             }
-        
-            //Kunna välja månad
-            String[] months = {"Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli",
-                    "Augusti", "September", "Oktober", "Nomvember", "December"};
+
             monthCbx = new JComboBox<>(months);
 
             // Kunna välja år, från och med detta och 5 år fram
@@ -48,15 +56,27 @@
             panel.add(monthCbx);
             panel.add(yearCbx);
 
-            selectDateButton = new JButton("Välj datum");
-            panel.add(selectDateButton);
+            createEventButton = new JButton("Create event");
+            panel.add(createEventButton);
+            createEventButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    createEvent();
+                }
+            });
 
             add(panel);
 
         }
 
+        public void createEvent() {
+            LocalDate date = LocalDate.parse(getSelectedYear() + "-" + getSelectedMonth() + "-" + getSelectedDay());
+            CalendarController.addEvent(new CustomEvent(eventNameTextField.getText(), date));
+            this.dispose();
+        }
+
         public void addSelectDateButtonListener(ActionListener listener) {
-            selectDateButton.addActionListener(listener);
+            createEventButton.addActionListener(listener);
         }
 
         public String getSelectedDate() {
@@ -68,12 +88,19 @@
                 return day + " " + month + " " + year;
         }
 
-        public int getSelectedDay() {
-            return (int) dayCbx.getSelectedItem();
+        public String getSelectedDay() {
+            if (dayCbx.getSelectedIndex() + 1 < 10) {
+                return "0" + dayCbx.getSelectedItem();
+            }
+            return dayCbx.getSelectedItem().toString();
         }
 
         public String getSelectedMonth() {
-            return (String) monthCbx.getSelectedItem();
+            List<String> monthList = Arrays.stream(months).toList();
+            if(monthList.indexOf(monthCbx.getSelectedItem()) + 1 < 10) {
+                return "0" + (monthList.indexOf(monthCbx.getSelectedItem()) + 1);
+            }
+            return String.valueOf(monthList.indexOf(monthCbx.getSelectedItem()) + 1);
         }
 
         public int getSelectedYear() {

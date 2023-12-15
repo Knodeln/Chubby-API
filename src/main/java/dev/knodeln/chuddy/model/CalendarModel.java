@@ -28,10 +28,6 @@ public class CalendarModel {
         return eventsByDate.getOrDefault(selectedDate, new ArrayList<>());
     }
 
-/*    public Map<String, List<CustomEvent>> getAllEvents() {
-        return eventsByDate;
-    }*/
-
     public void removeEvent(Date date, CustomEvent event) {
         List<CustomEvent> events = eventsByDate.get(date);
         if(events != null) {

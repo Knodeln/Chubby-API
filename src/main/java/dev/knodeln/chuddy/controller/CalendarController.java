@@ -16,42 +16,17 @@ import java.util.List;
 
 public class CalendarController {
     private static final CalendarModel calendarModel = new CalendarModel();
-    private CalendarView view;
-    private DatePickerView datePicker;
 
     public static List<CustomEvent> getEventsForDate(LocalDate date) {
         return calendarModel.getEventsForDate(date);
     }
 
-/*    private class CreateEventListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            view.showDatePicker();
-        }
-    }*/
     public static void addEvent(CustomEvent event) {
         calendarModel.addEvent(event);
     }
 
+    public static void uppdateCalenderView() {
 
-
-    // public void handleSelectedDate(String selectedDate, String eventName) {
-    //     try { 
-    //         Date eventDate = DateUtils.getDateFromString(selectedDate);
-    //         CustomEvent event = new CustomEvent(eventName, eventDate);
-    //     } catch (ParseException ex) {
-    //         ex.printStackTrace();
-    //     }
-    // }
-
-    private class DatePickerButtonListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String selectedDate = view.getSelectedDate();
-
-
-            calendarModel.setSelectedDate(selectedDate);
-            view.hideDatePicker();
-        }
     }
+
 }

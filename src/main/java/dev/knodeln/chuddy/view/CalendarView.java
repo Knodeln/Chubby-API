@@ -138,30 +138,6 @@ public class CalendarView extends JFrame {
         repaint();
     }
 
-
-    // public void updateEvents(List<CustomEvent> events) {
-    //     StringBuilder eventText = new StringBuilder();
-    //     for (CustomEvent event : events) {
-    //         String eventInfo = event.toString();
-    //         eventText.append(eventInfo).append("\n");
-    //     }
-    //     eventArea.setText("Events: \n" + eventText.toString());
-    // }
- 
-
-/*     public void updateEvents(List<CustomEvent> events) {
-         StringBuilder eventText = new StringBuilder();
-         for (CustomEvent event : events) {
-             String eventInfo = event.toString();
-             eventText.append(eventInfo).append("\n");
-        }
-          eventArea.setText("Events: \n" + eventText.toString());
-      }*/
-
-
-
-
-
         public static void main(String[] args) {
         SwingUtilities. invokeLater(() -> {
             LocalDate date = LocalDate.parse("2023-12-16");
