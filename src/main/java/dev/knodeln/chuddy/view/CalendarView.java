@@ -7,17 +7,6 @@ import java.awt.event.ActionListener;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.print.attribute.standard.DateTimeAtCompleted;
-import dev.knodeln.chuddy.model.CustomEvent;
-import dev.knodeln.chuddy.utilities.DateUtils;
-
-import java.util.Date;
-import java.text.ParseException;
-
-import dev.knodeln.chuddy.controller.CalendarController;
 import dev.knodeln.chuddy.model.CalendarModel;
 
 public class CalendarView extends JFrame {
@@ -39,24 +28,26 @@ public class CalendarView extends JFrame {
         titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
         topPanel.add(titleLabel, BorderLayout.NORTH);
 
-        weekLabel = new JLabel("Week: ", SwingConstants.CENTER);
-        topPanel.add(weekLabel, BorderLayout.SOUTH);
-        getContentPane().add(topPanel, BorderLayout.NORTH);
-
-        JPanel weekNavPanel = new JPanel(new FlowLayout());
+        JPanel weekNavigationPanel = new JPanel(new FlowLayout());
         JButton prevButton = new JButton("Previous");
         prevButton.addActionListener(e -> updateWeek(-1));
+        
+        weekLabel = new JLabel("Week: ", SwingConstants.CENTER);
+
         JButton nextButton = new JButton("Next");
         nextButton.addActionListener(e -> updateWeek(1));
 
-        weekNavPanel.add(prevButton);
-        weekNavPanel.add(nextButton);
-        getContentPane().add(weekNavPanel,BorderLayout.SOUTH);
+        weekNavigationPanel.add(prevButton);
+        weekNavigationPanel.add(weekLabel);
+        weekNavigationPanel.add(nextButton);
+        
+        topPanel.add(weekNavigationPanel, BorderLayout.SOUTH);
+        getContentPane().add(topPanel, BorderLayout.NORTH);
 
         createEventButton = new JButton("Skapa event");
         getContentPane().add(createEventButton, BorderLayout.SOUTH);
 
-        calendarPanel = new JPanel(new GridLayout(0,2));
+        calendarPanel = new JPanel(new GridLayout(0, 1));
         getContentPane().add(new JScrollPane(calendarPanel), BorderLayout.CENTER);
 
         datePicker = new DatePickerView();
@@ -73,6 +64,15 @@ public class CalendarView extends JFrame {
         displayedWeek = LocalDate.now();
         updatWeekLabel();
         setLabels(displayedWeek);
+        
+        JPanel weekNavPanel = new JPanel(new FlowLayout());
+
+        getContentPane().add(weekNavPanel, BorderLayout.SOUTH);
+        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        createEventButton = new JButton("Skapa event");
+        createEventButton.addActionListener(e -> showDatePicker());
+        bottomPanel.add(createEventButton);
+        getContentPane().add(bottomPanel, BorderLayout.SOUTH);
     }
 
     private void updateWeek(int offset) {
@@ -122,16 +122,15 @@ public class CalendarView extends JFrame {
         repaint();
     }
 
-//     // public void updateEvents(List<CustomEvent> events) {
-//     //     StringBuilder eventText = new StringBuilder();
-//     //     for (CustomEvent event : events) {
-//     //         String eventInfo = event.toString();
-//     //         eventText.append(eventInfo).append("\n");
-//     //     }
-//     //     eventArea.setText("Events: \n" + eventText.toString());
-//     // }
-
-//  }
+    // public void updateEvents(List<CustomEvent> events) {
+    //     StringBuilder eventText = new StringBuilder();
+    //     for (CustomEvent event : events) {
+    //         String eventInfo = event.toString();
+    //         eventText.append(eventInfo).append("\n");
+    //     }
+    //     eventArea.setText("Events: \n" + eventText.toString());
+    // }
+ 
 
 
         public static void main(String[] args) {
