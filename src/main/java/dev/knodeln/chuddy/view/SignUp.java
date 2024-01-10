@@ -1,5 +1,6 @@
 package dev.knodeln.chuddy.view;
 
+import dev.knodeln.chuddy.Exceptions.InvalidEmailException;
 import dev.knodeln.chuddy.Exceptions.UserAlreadyExistsException;
 import dev.knodeln.chuddy.controller.ChuddyUserController;
 import dev.knodeln.chuddy.controller.ViewController;
@@ -90,6 +91,9 @@ public class SignUp extends JFrame implements ActionListener {
         if (e.getSource() == signUpButton) {
 
             try {
+                 if (!email.endsWith("@chalmers.se")) {
+                 throw new InvalidEmailException();
+                }
                 ChuddyUserController.addUser(new ChuddyUser(username, age, email, password, edProgramme, year, gender));
                 ViewController.setLoginView();
                 this.dispose();
@@ -98,15 +102,18 @@ public class SignUp extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, "User already exists");
                 System.out.println(ex);
 
+            } catch (InvalidEmailException e1) {
+             JOptionPane.showMessageDialog(null, "Only Chalmers University emails are allowed for sign-up.");
+            System.out.println(e1);
             }
-        }
+        }      
+
         if (e.getSource() == loginButton) {
             ViewController.setLoginView();
             this.dispose();
         }
 
     }
-
 
 }
 
