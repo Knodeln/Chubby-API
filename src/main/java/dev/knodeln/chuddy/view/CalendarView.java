@@ -10,22 +10,26 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import dev.knodeln.chuddy.controller.CalendarController;
+import dev.knodeln.chuddy.controller.CurrentUserController;
 import dev.knodeln.chuddy.controller.ViewController;
 import dev.knodeln.chuddy.model.CalendarModel;
 import dev.knodeln.chuddy.model.CustomEvent;
 
 public class CalendarView extends JFrame {
-    private JButton createEventButton, profilePageButton;
-    private DatePickerView datePicker;
-    private JPanel calendarPanel;
-    private JLabel titleLabel;
-    private JLabel weekLabel;
+    private JButton createEventButton;
+    private final JButton profilePageButton;
+    private final DatePickerView datePicker;
+    private final JPanel calendarPanel;
+    private final JLabel titleLabel;
+    private final JLabel weekLabel;
     private LocalDate displayedWeek;
 
     public CalendarView() {
         super("Event");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(300, 500);
+        int HEIGHT = 500;
+        int WIDTH = 300;
+        setSize(WIDTH, HEIGHT);
         setLocationRelativeTo(null);
 
         JPanel topPanel = new JPanel(new BorderLayout());
@@ -133,29 +137,41 @@ public class CalendarView extends JFrame {
 
             List<CustomEvent> events = CalendarController.getEventsForDate(date);
             try {
-                for (CustomEvent event : events) {
+                for (CustomEvent event : events){
+                    JPanel eventPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
                     JLabel eventLabel = new JLabel(event.getEventName());
                     eventLabel.setHorizontalAlignment(SwingConstants.CENTER);
-                    calendarPanel.add(eventLabel);
+                    eventPanel.add(eventLabel);
+
+                    JLabel interestedLabel = new JLabel("Interested: " + String.valueOf(event.getInterestedAmount()));
+                    interestedLabel.setHorizontalAlignment(SwingConstants.LEFT);
+                    eventPanel.add(interestedLabel);
+
+                    JButton interestButton = new JButton("Interest");
+                    interestButton.setHorizontalAlignment(SwingConstants.RIGHT);
+                    interestButton.addActionListener(e -> handleInterestButtonClick(event));
+                    eventPanel.add(interestButton);
+
+                    calendarPanel.add(eventPanel);
                 }
             }
             catch(Exception e) {
 
             }
+
         }
 
         revalidate();
         repaint();
     }
-
-        public static void main(String[] args) {
-        SwingUtilities. invokeLater(() -> {
-            LocalDate date = LocalDate.parse("2023-12-16");
-            CalendarController.addEvent(new CustomEvent("test even", date));
-            CalendarView calendarView = new CalendarView();
-            //calendarApp.setupDatePicker();
-            calendarView.setVisible(true);
-        }); 
+    private void handleInterestButtonClick(CustomEvent event) {
+        CurrentUserController.joinEvent(event);
+        updateWeek(0);
     }
+    public CalendarView getView() {
+        return this;
+    }
+
 }
 

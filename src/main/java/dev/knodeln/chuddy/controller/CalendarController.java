@@ -24,9 +24,4 @@ public class CalendarController {
     public static void addEvent(CustomEvent event) {
         calendarModel.addEvent(event);
     }
-
-    public static void uppdateCalenderView() {
-
-    }
-
 }

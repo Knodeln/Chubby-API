@@ -3,6 +3,7 @@ package dev.knodeln.chuddy.controller;
 import dev.knodeln.chuddy.view.*;
 
 public class ViewController {
+
     public static void setLoginView() {
         new LoginGUI().setVisible(true);
     }

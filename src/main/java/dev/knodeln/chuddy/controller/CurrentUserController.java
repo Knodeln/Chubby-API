@@ -3,6 +3,7 @@ package dev.knodeln.chuddy.controller;
 import dev.knodeln.chuddy.Exceptions.UserNotFoundException;
 import dev.knodeln.chuddy.model.ChuddyDataHandler;
 import dev.knodeln.chuddy.model.ChuddyUser;
+import dev.knodeln.chuddy.model.CustomEvent;
 import dev.knodeln.chuddy.model.UserService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class CurrentUserController {
 
     public static ChuddyUser getCurrentUser() {
         return ChuddyDataHandler.getUserLoggedIn();
+    }
+    public static void joinEvent(CustomEvent event) {
+        event.addInterestedUser(getCurrentUser());
     }
 
 }
